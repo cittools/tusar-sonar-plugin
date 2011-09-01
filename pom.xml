@@ -16,7 +16,7 @@
 	<groupId>com.thalesgroup.sonar.plugins</groupId>
 	<artifactId>tusarplugin</artifactId>
 	<packaging>jar</packaging>
-	<version>0.5-SNAPSHOT</version>
+	<version>0.5.0</version>
 	<name>Sonar Plugin TUSAR Format</name>
 
 	<properties>
@@ -103,7 +103,7 @@
 		<dependency>
 		    <groupId>com.thalesgroup.tusar.lib</groupId>
 		    <artifactId>tusar2SonarConverter</artifactId>
-		    <version>0.2</version>	
+		    <version>0.2.1</version>	
 		</dependency>
 		                        
 	</dependencies>
