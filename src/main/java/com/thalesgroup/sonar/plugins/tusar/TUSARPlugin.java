@@ -30,8 +30,6 @@ import org.sonar.api.Plugin;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
 
-import com.thalesgroup.sonar.plugins.tusar.rulesrepository.TUSARProfileExporter;
-import com.thalesgroup.sonar.plugins.tusar.rulesrepository.TUSARProfileImporter;
 import com.thalesgroup.sonar.plugins.tusar.rulesrepository.TUSARRuleRepository;
 import com.thalesgroup.sonar.plugins.tusar.sensors.TUSARSensor;
 import com.thalesgroup.sonar.plugins.tusar.sensors.TUSARViolationsDataExtractor;
