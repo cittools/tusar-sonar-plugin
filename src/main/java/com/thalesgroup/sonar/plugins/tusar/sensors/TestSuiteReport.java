@@ -24,71 +24,71 @@ import java.util.List;
 
 public class TestSuiteReport {
 
-  private String path;
-  private int errors = 0;
-  private int skipped = 0;
-  private int tests = 0;
-  private int timeMS = 0;
-  private int failures = 0;
+    private String path;
+    private int errors = 0;
+    private int skipped = 0;
+    private int tests = 0;
+    private int timeMS = 0;
+    private int failures = 0;
 
-  private List<TestCaseDetails> details;
-  
+    private List<TestCaseDetails> details;
 
-  public TestSuiteReport(String path) {
-    super();
-    this.path = path;
-    this.details = new ArrayList<TestCaseDetails>();
-  }
 
-  public String getPath() {
-    return path;
-  }
-  
-  public int getErrors() {
-    return errors;
-  }
+    public TestSuiteReport(String path) {
+        super();
+        this.path = path;
+        this.details = new ArrayList<TestCaseDetails>();
+    }
 
-  public void setErrors(int errors) {
-    this.errors = errors;
-  }
+    public String getPath() {
+        return path;
+    }
 
-  public int getSkipped() {
-    return skipped;
-  }
+    public int getErrors() {
+        return errors;
+    }
 
-  public void setSkipped(int skipped) {
-    this.skipped = skipped;
-  }
+    public void setErrors(int errors) {
+        this.errors = errors;
+    }
 
-  public int getTests() {
-    return tests;
-  }
+    public int getSkipped() {
+        return skipped;
+    }
 
-  public void setTests(int tests) {
-    this.tests = tests;
-  }
+    public void setSkipped(int skipped) {
+        this.skipped = skipped;
+    }
 
-  public int getTimeMS() {
-    return timeMS;
-  }
+    public int getTests() {
+        return tests;
+    }
 
-  public void setTimeMS(int timeMS) {
-    this.timeMS = timeMS;
-  }
+    public void setTests(int tests) {
+        this.tests = tests;
+    }
 
-  public int getFailures() {
-    return failures;
-  }
+    public int getTimeMS() {
+        return timeMS;
+    }
 
-  public void setFailures(int failures) {
-    this.failures = failures;
-  }
+    public void setTimeMS(int timeMS) {
+        this.timeMS = timeMS;
+    }
 
-  public List<TestCaseDetails> getDetails() {
-    return details;
-  }
+    public int getFailures() {
+        return failures;
+    }
 
-  public void setDetails(List<TestCaseDetails> details) {
-    this.details = details;
-  }
+    public void setFailures(int failures) {
+        this.failures = failures;
+    }
+
+    public List<TestCaseDetails> getDetails() {
+        return details;
+    }
+
+    public void setDetails(List<TestCaseDetails> details) {
+        this.details = details;
+    }
 }

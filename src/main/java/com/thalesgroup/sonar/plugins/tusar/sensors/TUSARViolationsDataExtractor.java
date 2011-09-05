@@ -22,10 +22,10 @@
 
 package com.thalesgroup.sonar.plugins.tusar.sensors;
 
-import static org.apache.commons.lang.StringUtils.isNotBlank;
-
-import java.text.ParseException;
-
+import com.thalesgroup.sonar.lib.model.v2.Sonar;
+import com.thalesgroup.sonar.lib.model.v2.ViolationsComplexType;
+import com.thalesgroup.sonar.plugins.tusar.TUSARResource;
+import com.thalesgroup.sonar.plugins.tusar.rulesrepository.TUSARRuleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.BatchExtension;
@@ -38,74 +38,73 @@ import org.sonar.api.rules.RuleQuery;
 import org.sonar.api.rules.Violation;
 import org.sonar.api.utils.ParsingUtils;
 
-import com.thalesgroup.sonar.lib.model.v2.Sonar;
-import com.thalesgroup.sonar.lib.model.v2.ViolationsComplexType;
-import com.thalesgroup.sonar.plugins.tusar.TUSARResource;
-import com.thalesgroup.sonar.plugins.tusar.rulesrepository.TUSARRuleRepository;
+import java.text.ParseException;
+
+import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 /**
  * Contains methods to extract TUSAR tests data.
  */
 public class TUSARViolationsDataExtractor implements BatchExtension {
 
-	private static Logger logger = LoggerFactory.getLogger(TUSARViolationsDataExtractor.class);
+    private static Logger logger = LoggerFactory.getLogger(TUSARViolationsDataExtractor.class);
 
-	private RuleFinder ruleFinder;
+    private RuleFinder ruleFinder;
 
-	public TUSARViolationsDataExtractor(RuleFinder ruleFinder){
-		this.ruleFinder=ruleFinder;
-	}
-	
-	public  void saveToSonarViolationsData(Sonar model, SensorContext context, Project project)
-			throws ParseException {
+    public TUSARViolationsDataExtractor(RuleFinder ruleFinder) {
+        this.ruleFinder = ruleFinder;
+    }
 
-		for (ViolationsComplexType.File file : model.getViolations().getFile()) {
+    public void saveToSonarViolationsData(Sonar model, SensorContext context, Project project)
+            throws ParseException {
 
-			Resource resource = TUSARResource.fromAbsOrRelativePath(
-					file.getPath(), project, false);
+        for (ViolationsComplexType.File file : model.getViolations().getFile()) {
 
-			// File resourceFile = File.fromIOFile(new
-			// java.io.File(file.getName()), project);
+            Resource resource = TUSARResource.fromAbsOrRelativePath(
+                    file.getPath(), project, false);
 
-			if (resource == null) {
-				logger.debug("Path is not valid, resource {} does not exists.",
-						file.getPath());
-			} else {
+            // File resourceFile = File.fromIOFile(new
+            // java.io.File(file.getName()), project);
 
-				for (ViolationsComplexType.File.Violation error : file
-						.getViolation()) {
+            if (resource == null) {
+                logger.debug("Path is not valid, resource {} does not exists.",
+                        file.getPath());
+            } else {
 
-					RuleQuery ruleQuery = RuleQuery
-							.create()
-							.withRepositoryKey(TUSARRuleRepository.REPOSITORY_KEY)
-							.withKey(error.getKey());
-					Rule rule = ruleFinder.find(ruleQuery);
-					if (rule != null) {
-						int line = parseLineIndex(error.getLine());
-						Violation violation = new Violation(rule, resource)
-								.setLineId(line).setMessage(error.getMessage());
+                for (ViolationsComplexType.File.Violation error : file
+                        .getViolation()) {
 
-						context.saveViolation(violation);
-					}
+                    RuleQuery ruleQuery = RuleQuery
+                            .create()
+                            .withRepositoryKey(TUSARRuleRepository.REPOSITORY_KEY)
+                            .withKey(error.getKey());
+                    Rule rule = ruleFinder.find(ruleQuery);
+                    if (rule != null) {
+                        int line = parseLineIndex(error.getLine());
+                        Violation violation = new Violation(rule, resource)
+                                .setLineId(line).setMessage(error.getMessage());
 
-					/*
-					 * Rule rule = rulesManager.getPluginRule(TUSARPlugin.KEY,
-					 * error.getKey()); if (rule != null) { int line =
-					 * parseLineIndex(error.getLine()); Violation violation =
-					 * new Violation(rule, resource) .setLineId(line)
-					 * .setMessage(error.getMessage());
-					 * 
-					 * context.saveViolation(violation); }
-					 */
-				}
-			}
-		}
-	}
+                        context.saveViolation(violation);
+                    }
 
-	private  Integer parseLineIndex(String line) throws ParseException {
-		if (!isNotBlank(line) || line.indexOf('-') != -1) {
-			return null;
-		}
-		return (int) ParsingUtils.parseNumber(line);
-	}
+                    /*
+                          * Rule rule = rulesManager.getPluginRule(TUSARPlugin.KEY,
+                          * error.getKey()); if (rule != null) { int line =
+                          * parseLineIndex(error.getLine()); Violation violation =
+                          * new Violation(rule, resource) .setLineId(line)
+                          * .setMessage(error.getMessage());
+                          *
+                          * context.saveViolation(violation); }
+                          */
+                }
+            }
+        }
+    }
+
+    private Integer parseLineIndex(String line) throws ParseException {
+        if (!isNotBlank(line) || line.indexOf('-') != -1) {
+            return null;
+        }
+        return (int) ParsingUtils.parseNumber(line);
+    }
 }

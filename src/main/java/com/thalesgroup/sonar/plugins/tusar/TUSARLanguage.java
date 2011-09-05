@@ -29,22 +29,17 @@ import org.sonar.api.resources.AbstractLanguage;
  */
 public class TUSARLanguage extends AbstractLanguage {
 
-	public static final TUSARLanguage INSTANCE = new TUSARLanguage();
+    public static final TUSARLanguage INSTANCE = new TUSARLanguage();
 
-	public static final String KEY = "tusar";
-	public static final String NAME = "TUSAR format - All languages";
+    public static final String KEY = "tusar";
+    public static final String NAME = "TUSAR format - All languages";
 
-	// TODO GBO : fix the SUFFIXES as the language is a "generic" language
-	// public static final String[] SUFFIXES = {"java", "php", "c", "cpp",
-	// "cxx", "h", "hxx", "ads", "adb"};
+    public TUSARLanguage() {
+        super(KEY, NAME);
+    }
 
-	public TUSARLanguage() {
-		super(KEY, NAME);
-	}
-
-	@Override
-	public String[] getFileSuffixes() {
-		return new String[0];
-		// return SUFFIXES;
-	}
+    @Override
+    public String[] getFileSuffixes() {
+        return new String[0];
+    }
 }

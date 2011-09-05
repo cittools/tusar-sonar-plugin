@@ -22,91 +22,88 @@
 
 package com.thalesgroup.sonar.plugins.tusar;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.thalesgroup.sonar.plugins.tusar.rulesrepository.TUSARRuleRepository;
+import com.thalesgroup.sonar.plugins.tusar.sensors.TUSARSensor;
+import com.thalesgroup.sonar.plugins.tusar.sensors.TUSARViolationsDataExtractor;
 import org.sonar.api.Extension;
 import org.sonar.api.Plugin;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
 
-import com.thalesgroup.sonar.plugins.tusar.rulesrepository.TUSARProfileExporter;
-import com.thalesgroup.sonar.plugins.tusar.rulesrepository.TUSARProfileImporter;
-import com.thalesgroup.sonar.plugins.tusar.rulesrepository.TUSARRuleRepository;
-import com.thalesgroup.sonar.plugins.tusar.sensors.TUSARSensor;
-import com.thalesgroup.sonar.plugins.tusar.sensors.TUSARViolationsDataExtractor;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is the container for all others extensions
  */
-@Properties({ @Property(key = TUSARPlugin.TUSAR_REPORTSPATHS_KEY, name = "TUSAR reports path", description = "Path (absolute or relative) to TUSAR xml reports directories. Separate paths by ';'", project = true, global = false) })
+@Properties({@Property(key = TUSARPlugin.TUSAR_REPORTSPATHS_KEY, name = "TUSAR reports path", description = "Path (absolute or relative) to TUSAR xml reports directories. Separate paths by ';'", project = true, global = false)})
 public class TUSARPlugin implements Plugin {
 
-	public static final String KEY = "tusarplugin";
-	public static final String NAME = "TUSAR Format Plugin";
-	public static final String DESCRIPTION = "This is a generic plugin allowing Sonar to display data coming from any tool. This uses the 'light-mode' only. Unit tests, coverage, violations and others metrics come to Sonar through the TUSAR reports format.";
+    public static final String KEY = "tusarplugin";
+    public static final String NAME = "TUSAR Format Plugin";
+    public static final String DESCRIPTION = "This is a generic plugin allowing Sonar to display data coming from any tool. This uses the 'light-mode' only. Unit tests, coverage, violations and others metrics come to Sonar through the TUSAR reports format.";
 
-	public static final String FILTERS_DEFAULT_VALUE = "xml";
-	public static final String FILTERS_KEY = "sonar.tusar.filters";
+    public static final String FILTERS_DEFAULT_VALUE = "xml";
+    public static final String FILTERS_KEY = "sonar.tusar.filters";
 
-	public static final String TUSAR_REPORTSPATHS_KEY = "sonar.tusar.reportsPaths";
+    public static final String TUSAR_REPORTSPATHS_KEY = "sonar.tusar.reportsPaths";
 
-	// The key which uniquely identifies your plugin among all others Sonar
-	// plugins
-	public String getKey() {
-		return KEY;
-	}
+    // The key which uniquely identifies your plugin among all others Sonar
+    // plugins
+    public String getKey() {
+        return KEY;
+    }
 
-	public String getName() {
-		return NAME;
-	}
+    public String getName() {
+        return NAME;
+    }
 
-	// This description will be displayed in the Configuration > Settings web
-	// page
-	public String getDescription() {
-		return DESCRIPTION;
-	}
+    // This description will be displayed in the Configuration > Settings web
+    // page
+    public String getDescription() {
+        return DESCRIPTION;
+    }
 
-	// This is where you're going to declare all your Sonar extensions
-	public List<Class<? extends Extension>> getExtensions() {
-		List<Class<? extends Extension>> list = new ArrayList<Class<? extends Extension>>();
+    // This is where you're going to declare all your Sonar extensions
+    public List<Class<? extends Extension>> getExtensions() {
+        List<Class<? extends Extension>> list = new ArrayList<Class<? extends Extension>>();
 
-		// Declare the language used by the plugin
-		list.add(TUSARLanguage.class);
+        // Declare the language used by the plugin
+        list.add(TUSARLanguage.class);
 
-		// Declare the source importer module
-		list.add(SourceImporter.class);
+        // Declare the source importer module
+        list.add(SourceImporter.class);
 
-		list.add(TUSARViolationsDataExtractor.class);
-		
-		list.add(TUSARRuleRepository.class);
-		//list.add(TUSARProfileExporter.class);
-		//list.add(TUSARProfileImporter.class);
+        list.add(TUSARViolationsDataExtractor.class);
 
-		// Declare the sensors : these classes are executed if their method
-		// "shouldExecuteOnProject" returns true.
-		list.add(TUSARSensor.class);
+        list.add(TUSARRuleRepository.class);
+        //list.add(TUSARProfileExporter.class);
+        //list.add(TUSARProfileImporter.class);
 
-		// Declare the decorators. These are executed after the sensors.
-		// The decorators uses raw data from sensor, and calculate other
-		// metrics.
-		// ie : Number of lines of code for the whole project is an addition of
-		// lines of code of each file.
-		// GBO - REMOVE unuse Directory
-		/*
-		 * list.add(DirectoryDecorator.class); list.add(FilesDecorator.class);
-		 */
+        // Declare the sensors : these classes are executed if their method
+        // "shouldExecuteOnProject" returns true.
+        list.add(TUSARSensor.class);
 
-		// Declare the coverage viewer. This is a gwt page adding a new tab for
-		// coverage.
-		// We can not use the standard viewer, because this one displays only
-		// resources with qualifier QUALIFIER_CLASS.
+        // Declare the decorators. These are executed after the sensors.
+        // The decorators uses raw data from sensor, and calculate other
+        // metrics.
+        // ie : Number of lines of code for the whole project is an addition of
+        // lines of code of each file.
+        // GBO - REMOVE unuse Directory
+        /*
+           * list.add(DirectoryDecorator.class); list.add(FilesDecorator.class);
+           */
 
-		return list;
-	}
+        // Declare the coverage viewer. This is a gwt page adding a new tab for
+        // coverage.
+        // We can not use the standard viewer, because this one displays only
+        // resources with qualifier QUALIFIER_CLASS.
 
-	@Override
-	public String toString() {
-		return getKey();
-	}
+        return list;
+    }
+
+    @Override
+    public String toString() {
+        return getKey();
+    }
 }
