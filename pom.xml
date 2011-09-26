@@ -120,7 +120,6 @@
 
     <contributors>
         <contributor>
-            <id>gboissinot</id>
             <name>Gregory Boissinot</name>
             <timezone>+1</timezone>
             <roles>
@@ -128,7 +127,6 @@
             </roles>
         </contributor>
         <contributor>
-            <id>gtanier</id>
             <name>Guillaume Tanier</name>
             <timezone>+1</timezone>
             <roles>
@@ -137,7 +135,6 @@
             </roles>
         </contributor>
         <contributor>
-            <id>aravindan</id>
             <name>Aravindan Mahendran</name>
             <timezone>+1</timezone>
             <roles>
