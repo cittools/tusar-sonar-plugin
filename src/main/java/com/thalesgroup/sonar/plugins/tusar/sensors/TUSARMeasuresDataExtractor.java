@@ -69,7 +69,7 @@ public class TUSARMeasuresDataExtractor {
                         .getMeasure()) {
                     double measureValue = ParsingUtils.parseNumber(measure
                             .getValue());
-                    String measureKey = measure.getKey();
+                    String measureKey = measure.getKey().toUpperCase();
                     Metric sonarMetric = metricsMapping.get(measureKey);
                     if (sonarMetric != null) {
                         context.saveMeasure(resource, new Measure(sonarMetric,
@@ -255,14 +255,14 @@ public class TUSARMeasuresDataExtractor {
     private static Resource<?> constructResource(String resourceType,
                                                  String resourcePath, Project project) {
 
-        if ("PROJECT".equals(resourceType)) {
+        if ("PROJECT".equals(resourceType.toUpperCase())) {
             // TBD : nom du projet dans le fichier xml doit correspondre au nom
             // du projet dans hudson/sonar
             //return new Project(resourcePath);
             return project;
-        } else if ("DIRECTORY".equals(resourceType)) {
+        } else if ("DIRECTORY".equals(resourceType.toUpperCase())) {
             return new Directory(resourcePath, new TUSARLanguage());
-        } else if ("FILE".equals(resourceType)) {
+        } else if ("FILE".equals(resourceType.toUpperCase())) {
             // for file, we uses the TUSARResource element, which is as a FILE
             return TUSARResource.fromAbsOrRelativePath(resourcePath, project,
                     false);
