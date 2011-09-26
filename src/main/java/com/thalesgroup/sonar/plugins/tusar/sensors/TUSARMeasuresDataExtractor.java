@@ -258,11 +258,12 @@ public class TUSARMeasuresDataExtractor {
         if ("PROJECT".equals(resourceType)) {
             // TBD : nom du projet dans le fichier xml doit correspondre au nom
             // du projet dans hudson/sonar
-            return new Project(resourcePath);
+            //return new Project(resourcePath);
+            return project;
         } else if ("DIRECTORY".equals(resourceType)) {
             return new Directory(resourcePath, new TUSARLanguage());
         } else if ("FILE".equals(resourceType)) {
-            // for file, we uses the TUSARResource element, wich is as a FILE
+            // for file, we uses the TUSARResource element, which is as a FILE
             return TUSARResource.fromAbsOrRelativePath(resourcePath, project,
                     false);
         }
