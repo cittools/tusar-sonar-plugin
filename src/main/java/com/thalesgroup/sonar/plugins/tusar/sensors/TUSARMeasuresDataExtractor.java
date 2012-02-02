@@ -22,9 +22,9 @@
 
 package com.thalesgroup.sonar.plugins.tusar.sensors;
 
-import com.thalesgroup.sonar.lib.model.v2.DuplicationsComplexType;
-import com.thalesgroup.sonar.lib.model.v2.SizeComplexType;
-import com.thalesgroup.sonar.lib.model.v2.Sonar;
+import com.thalesgroup.sonar.lib.model.v3.DuplicationsComplexType;
+import com.thalesgroup.sonar.lib.model.v3.SizeComplexType;
+import com.thalesgroup.sonar.lib.model.v3.Sonar;
 import com.thalesgroup.sonar.plugins.tusar.TUSARLanguage;
 import com.thalesgroup.sonar.plugins.tusar.TUSARResource;
 import org.slf4j.Logger;
@@ -56,7 +56,7 @@ public class TUSARMeasuresDataExtractor {
 
     private static void processSize(SizeComplexType size,
                                     SensorContext context, Project project) throws ParseException {
-        for (com.thalesgroup.sonar.lib.model.v2.SizeComplexType.Resource element : size
+        for (com.thalesgroup.sonar.lib.model.v3.SizeComplexType.Resource element : size
                 .getResource()) {
             Resource<?> resource = constructResource(element.getType(),
                     element.getValue(), project);
@@ -65,7 +65,7 @@ public class TUSARMeasuresDataExtractor {
                         "Path is not valid, {} resource {} does not exists.",
                         element.getType(), element.getValue());
             } else {
-                for (com.thalesgroup.sonar.lib.model.v2.SizeComplexType.Resource.Measure measure : element
+                for (com.thalesgroup.sonar.lib.model.v3.SizeComplexType.Resource.Measure measure : element
                         .getMeasure()) {
                     double measureValue = ParsingUtils.parseNumber(measure
                             .getValue());
@@ -224,31 +224,9 @@ public class TUSARMeasuresDataExtractor {
 
     private static HashMap<String, Metric> constructMetricsMapping() {
         HashMap<String, Metric> map = new HashMap<String, Metric>();
-        map.put("LINES", CoreMetrics.LINES);
-        map.put("NCLOC", CoreMetrics.NCLOC);
-        map.put("CLASSES", CoreMetrics.CLASSES);
-        map.put("FILES", CoreMetrics.FILES);
-        map.put("DIRECTORIES", CoreMetrics.DIRECTORIES);
-        map.put("PACKAGES", CoreMetrics.PACKAGES);
-        map.put("FUNCTIONS", CoreMetrics.FUNCTIONS);
-        map.put("STATEMENTS", CoreMetrics.STATEMENTS);
-        map.put("PUBLIC_API", CoreMetrics.PUBLIC_API);
-        map.put("PACKAGES", CoreMetrics.PACKAGES);
-        map.put("COMPLEXITY", CoreMetrics.COMPLEXITY);
-        map.put("CLASS_COMPLEXITY", CoreMetrics.CLASS_COMPLEXITY);
-        map.put("FUNCTION_COMPLEXITY", CoreMetrics.FUNCTION_COMPLEXITY);
-        map.put("FILE_COMPLEXITY", CoreMetrics.FILE_COMPLEXITY);
-        map.put("CLASS_COMPLEXITY_DISTRIBUTION",
-                CoreMetrics.CLASS_COMPLEXITY_DISTRIBUTION);
-        map.put("FUNCTION_COMPLEXITY_DISTRIBUTION",
-                CoreMetrics.FUNCTION_COMPLEXITY_DISTRIBUTION);
-        map.put("COMMENT_LINES", CoreMetrics.COMMENT_LINES);
-        map.put("COMMENT_LINES_DENSITY", CoreMetrics.COMMENT_LINES_DENSITY);
-        map.put("PUBLIC_DOCUMENTED_API_DENSITY",
-                CoreMetrics.PUBLIC_DOCUMENTED_API_DENSITY);
-        map.put("PUBLIC_UNDOCUMENTED_API", CoreMetrics.PUBLIC_UNDOCUMENTED_API);
-        map.put("COMMENTED_OUT_CODE_LINES",
-                CoreMetrics.COMMENTED_OUT_CODE_LINES);
+        for (Metric m : CoreMetrics.getMetrics()){
+			map.put(m.getKey().toUpperCase(), m);
+		}
         return map;
     }
 

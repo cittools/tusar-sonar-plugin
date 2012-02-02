@@ -22,8 +22,8 @@
 
 package com.thalesgroup.sonar.plugins.tusar.sensors;
 
-import com.thalesgroup.sonar.lib.model.v2.CoverageComplexType;
-import com.thalesgroup.sonar.lib.model.v2.Sonar;
+import com.thalesgroup.sonar.lib.model.v3.CoverageComplexType;
+import com.thalesgroup.sonar.lib.model.v3.Sonar;
 import com.thalesgroup.sonar.plugins.tusar.TUSARResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

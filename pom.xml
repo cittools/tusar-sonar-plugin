@@ -6,7 +6,7 @@
     <groupId>com.thalesgroup.sonar.plugins</groupId>
     <artifactId>tusarplugin</artifactId>
     <packaging>jar</packaging>
-    <version>0.5.2-SNAPSHOT</version>
+    <version>0.5.2</version>
     <name>Sonar Plugin TUSAR Format</name>
 
     <properties>
@@ -17,7 +17,7 @@
         <sonar.version>2.9</sonar.version>
         <sonar.pluginName>Tusar</sonar.pluginName>
         <sonar.pluginClass>com.thalesgroup.sonar.plugins.tusar.TUSARlugin</sonar.pluginClass>
-        <lib.dtkit.util>0.14.1</lib.dtkit.util>
+        <lib.dtkit.util>0.15</lib.dtkit.util>
     </properties>
 
     <dependencies>
@@ -30,7 +30,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.thalesgroup.dtkit</groupId>
+            <groupId>org.jenkins-ci.lib.dtkit</groupId>
             <artifactId>dtkit-metrics-util</artifactId>
             <version>${lib.dtkit.util}</version>
         </dependency>
@@ -87,13 +87,13 @@
         <dependency>
             <groupId>com.thalesgroup.sonar.lib</groupId>
             <artifactId>sonar-model</artifactId>
-            <version>0.2</version>
+            <version>0.3</version>
         </dependency>
 
         <dependency>
             <groupId>com.thalesgroup.tusar.lib</groupId>
             <artifactId>tusar2SonarConverter</artifactId>
-            <version>0.2.1</version>
+            <version>0.3</version>
         </dependency>
 
     </dependencies>

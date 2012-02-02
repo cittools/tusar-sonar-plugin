@@ -22,8 +22,8 @@
 
 package com.thalesgroup.sonar.plugins.tusar.sensors;
 
-import com.thalesgroup.sonar.lib.model.v2.Sonar;
-import com.thalesgroup.sonar.lib.model.v2.TestsComplexType;
+import com.thalesgroup.sonar.lib.model.v3.Sonar;
+import com.thalesgroup.sonar.lib.model.v3.TestsComplexType;
 import com.thalesgroup.sonar.plugins.tusar.TUSARResource;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.sonar.api.batch.SensorContext;
@@ -91,7 +91,8 @@ public class TUSARTestsDataExtractor {
 
                     // cumulate data for test suite
                     testSuiteReport.setFailures(testSuiteReport.getFailures() + 1);
-                } else if (testCase.getError() != null) {
+                } 
+                else if (testCase.getError() != null) {
                     testCaseStatus = TestCaseDetails.STATUS_ERROR;
                     testCaseDetails.setErrorMessage(testCase.getError().getMessage());
                     testCaseDetails.setStackTrace(testCase.getError().getContent());
@@ -99,7 +100,12 @@ public class TUSARTestsDataExtractor {
                     // cumulate data for test suite
                     testSuiteReport.setErrors(testSuiteReport.getErrors() + 1);
                 }
-                // TODO "skipped" status into JUNIT ?
+                else if (testCase.getSkipped() != null) {
+                	testCaseStatus = TestCaseDetails.STATUS_SKIPPED;
+                	
+                	// cumulate data for test suite
+                    testSuiteReport.setSkipped(testSuiteReport.getSkipped() + 1);
+                }
 
                 testCaseDetails.setStatus(testCaseStatus);
 
