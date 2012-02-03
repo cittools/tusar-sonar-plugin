@@ -56,11 +56,17 @@ public class TUSARTestsDataExtractor {
 
             for (TestsComplexType.Testsuite.Testcase testCase : testSuite.getTestcase()) {
 
-                String testCasePath;
+                String testCasePath = "";
                 if (testCase.getFilepath() != null) {
                     testCasePath = testCase.getFilepath();
-                } else {
+                } 
+                else if (testCase.getFulltestname() != null){
                     testCasePath = testCase.getFulltestname();
+                }
+                
+                //Fix bug : if testCasePath is empty, set it with the testname
+                if(testCasePath.trim().isEmpty()){
+                	testCasePath = testCase.getTestname();
                 }
 
                 //Filter testCasePath
