@@ -22,8 +22,8 @@
 
 package com.thalesgroup.sonar.plugins.tusar.sensors;
 
-import com.thalesgroup.sonar.lib.model.v3.Sonar;
-import com.thalesgroup.sonar.lib.model.v3.TestsComplexType;
+import com.thalesgroup.sonar.lib.model.v4.Sonar;
+import com.thalesgroup.sonar.lib.model.v4.TestsComplexType;
 import com.thalesgroup.sonar.plugins.tusar.TUSARResource;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.sonar.api.batch.SensorContext;

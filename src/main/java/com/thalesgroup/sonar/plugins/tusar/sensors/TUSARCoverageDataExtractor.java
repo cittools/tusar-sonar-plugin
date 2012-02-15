@@ -1,6 +1,8 @@
 /*******************************************************************************
  * Copyright (c) 2010 Thales Corporate Services SAS                             *
  *                                                                              *
+ * The MIT License                                                              *
+ *                                                                              *
  * Permission is hereby granted, free of charge, to any person obtaining a copy *
  * of this software and associated documentation files (the "Software"), to deal*
  * in the Software without restriction, including without limitation the rights *
@@ -22,9 +24,9 @@
 
 package com.thalesgroup.sonar.plugins.tusar.sensors;
 
-import com.thalesgroup.sonar.lib.model.v3.CoverageComplexType;
-import com.thalesgroup.sonar.lib.model.v3.Sonar;
-import com.thalesgroup.sonar.plugins.tusar.TUSARResource;
+import java.text.ParseException;
+import java.util.Locale;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.SensorContext;
@@ -36,8 +38,10 @@ import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.utils.ParsingUtils;
 
-import java.text.ParseException;
-import java.util.Locale;
+import com.thalesgroup.sonar.lib.model.v4.BranchCoverageComplexType;
+import com.thalesgroup.sonar.lib.model.v4.LineCoverageComplexType;
+import com.thalesgroup.sonar.lib.model.v4.Sonar;
+import com.thalesgroup.sonar.plugins.tusar.TUSARResource;
 
 /**
  * Contains methods to extract TUSAR tests data.
@@ -45,41 +49,91 @@ import java.util.Locale;
 public class TUSARCoverageDataExtractor {
 
     private static Logger logger = LoggerFactory.getLogger(TUSARCoverageDataExtractor.class);
+    private static String FILE_RESSOURCE_TYPE="File";
 
     public static void saveToSonarCoverageData(Sonar model, SensorContext context, Project project) throws ParseException {
 
-        for (CoverageComplexType.File file : model.getCoverage().getFile()) {
+        processLineCoverage(model, context, project);
+        processBranchCoverage(model, context, project);
+    }
+    
+    private static void processBranchCoverage(Sonar model, SensorContext context, Project project) throws ParseException {
+    	BranchCoverageComplexType branchCoverage = model.getCoverage().getBranchCoverage();
+    	if (branchCoverage != null){
+			for (BranchCoverageComplexType.Resource resource : branchCoverage.getResource()){
+				if (resource.getType().equalsIgnoreCase(FILE_RESSOURCE_TYPE)){
+					
+					Resource res = TUSARResource.fromAbsOrRelativePath(resource.getFullname(), project, false);
+					
+					
+					if (res == null) {
+		                logger.debug("Path is not valid, resource {} does not exists.", resource.getFullname());
+		            }
+					else {
+						int conditionsToCover = 0;
+						int uncoveredConditions = 0;
+						PropertiesBuilder<String, Integer> conditionsByLine = new PropertiesBuilder<String, Integer>(CoreMetrics.CONDITIONS_BY_LINE);
+						PropertiesBuilder<String, Integer> coveredConditionsByLine = new PropertiesBuilder<String, Integer>(CoreMetrics.COVERED_CONDITIONS_BY_LINE);
+						
+						for (BranchCoverageComplexType.Resource.Line line : resource.getLine()){
+							int numberOfBranches = (int) ParsingUtils.parseNumber(line.getNumberOfBranches(), Locale.ENGLISH);
+							int uncoveredBranches = (int) ParsingUtils.parseNumber(line.getUncoveredBranches(), Locale.ENGLISH);
+							
+							conditionsToCover += numberOfBranches;
+							uncoveredConditions += uncoveredBranches;
+							
+							conditionsByLine.add(line.getNumber(), numberOfBranches);
+							coveredConditionsByLine.add(line.getNumber(), numberOfBranches-uncoveredBranches);
+							
+						}
+						
+						context.saveMeasure(res, new Measure(CoreMetrics.CONDITIONS_TO_COVER,(double)conditionsToCover));
+						context.saveMeasure(res, new Measure(CoreMetrics.UNCOVERED_CONDITIONS,(double)uncoveredConditions));
+						context.saveMeasure(res, new Measure(CoreMetrics.BRANCH_COVERAGE,(double)calculateCoverage(conditionsToCover-uncoveredConditions, conditionsToCover)));
+						context.saveMeasure(res,conditionsByLine.build().setPersistenceMode(PersistenceMode.DATABASE));
+						context.saveMeasure(res,coveredConditionsByLine.build().setPersistenceMode(PersistenceMode.DATABASE));
+					}
+				}
+			}
+    	}
+	}
 
-            Resource resource = TUSARResource.fromAbsOrRelativePath(file.getPath(), project, false);
-
-            if (resource == null) {
-                logger.debug("Path is not valid, resource {} does not exists.", file.getPath());
-            } else {
-                double lines = 0;
-                double coveredLines = 0;
-                PropertiesBuilder<String, Integer> lineHitsBuilder = new PropertiesBuilder<String, Integer>(CoreMetrics.COVERAGE_LINE_HITS_DATA);
-                //double coveredConditions;
-                //double conditions;
-
-                for (CoverageComplexType.File.Line line : file.getLine()) {
-
-                    lines++;
-                    int hits = (int) ParsingUtils.parseNumber(line.getHits(), Locale.ENGLISH);
-                    if (hits > 0) {
-                        coveredLines++;
-                    }
-                    lineHitsBuilder.add(line.getNumber(), hits);
-                }
-
-                //double coverage = calculateCoverage(coveredLines + coveredConditions, lines + conditions);
-                //context.saveMeasure(resource, new Measure(CoreMetrics.COVERAGE, coverage));
-
-                context.saveMeasure(resource, new Measure(CoreMetrics.LINES_TO_COVER, (double) lines));
-                context.saveMeasure(resource, new Measure(CoreMetrics.LINE_COVERAGE, calculateCoverage(coveredLines, lines)));
-                context.saveMeasure(resource, new Measure(CoreMetrics.UNCOVERED_LINES, (double) lines - coveredLines));
-                context.saveMeasure(resource, lineHitsBuilder.build().setPersistenceMode(PersistenceMode.DATABASE));
-            }
-        }
+	private static void processLineCoverage(Sonar model, SensorContext context, Project project) throws ParseException{
+		LineCoverageComplexType lineCoverage = model.getCoverage().getLineCoverage();
+		if (lineCoverage != null){
+	    	for (LineCoverageComplexType.File file : model.getCoverage().getLineCoverage().getFile()) {
+	
+	            Resource resource = TUSARResource.fromAbsOrRelativePath(file.getPath(), project, false);
+	
+	            if (resource == null) {
+	                logger.debug("Path is not valid, resource {} does not exists.", file.getPath());
+	            } else {
+	                double lines = 0;
+	                double coveredLines = 0;
+	                PropertiesBuilder<String, Integer> lineHitsBuilder = new PropertiesBuilder<String, Integer>(CoreMetrics.COVERAGE_LINE_HITS_DATA);
+	                //double coveredConditions;
+	                //double conditions;
+	
+	                for (LineCoverageComplexType.File.Line line : file.getLine()) {
+	
+	                    lines++;
+	                    int hits = (int) ParsingUtils.parseNumber(line.getHits(), Locale.ENGLISH);
+	                    if (hits > 0) {
+	                        coveredLines++;
+	                    }
+	                    lineHitsBuilder.add(line.getNumber(), hits);
+	                }
+	
+	                //double coverage = calculateCoverage(coveredLines + coveredConditions, lines + conditions);
+	                //context.saveMeasure(resource, new Measure(CoreMetrics.COVERAGE, coverage));
+	
+	                context.saveMeasure(resource, new Measure(CoreMetrics.LINES_TO_COVER, (double) lines));
+	                context.saveMeasure(resource, new Measure(CoreMetrics.LINE_COVERAGE, calculateCoverage(coveredLines, lines)));
+	                context.saveMeasure(resource, new Measure(CoreMetrics.UNCOVERED_LINES, (double) lines - coveredLines));
+	                context.saveMeasure(resource, lineHitsBuilder.build().setPersistenceMode(PersistenceMode.DATABASE));
+	            }
+	        }
+		}
     }
 
     private static double calculateCoverage(double coveredElements, double elements) {
@@ -88,4 +142,5 @@ public class TUSARCoverageDataExtractor {
         }
         return 0.0;
     }
+    
 }

@@ -22,9 +22,9 @@
 
 package com.thalesgroup.sonar.plugins.tusar.sensors;
 
-import com.thalesgroup.sonar.lib.model.v3.DuplicationsComplexType;
-import com.thalesgroup.sonar.lib.model.v3.SizeComplexType;
-import com.thalesgroup.sonar.lib.model.v3.Sonar;
+import com.thalesgroup.sonar.lib.model.v4.DuplicationsComplexType;
+import com.thalesgroup.sonar.lib.model.v4.SizeComplexType;
+import com.thalesgroup.sonar.lib.model.v4.Sonar;
 import com.thalesgroup.sonar.plugins.tusar.TUSARLanguage;
 import com.thalesgroup.sonar.plugins.tusar.TUSARResource;
 import org.slf4j.Logger;
@@ -56,7 +56,7 @@ public class TUSARMeasuresDataExtractor {
 
     private static void processSize(SizeComplexType size,
                                     SensorContext context, Project project) throws ParseException {
-        for (com.thalesgroup.sonar.lib.model.v3.SizeComplexType.Resource element : size
+        for (com.thalesgroup.sonar.lib.model.v4.SizeComplexType.Resource element : size
                 .getResource()) {
             Resource<?> resource = constructResource(element.getType(),
                     element.getValue(), project);
@@ -65,7 +65,7 @@ public class TUSARMeasuresDataExtractor {
                         "Path is not valid, {} resource {} does not exists.",
                         element.getType(), element.getValue());
             } else {
-                for (com.thalesgroup.sonar.lib.model.v3.SizeComplexType.Resource.Measure measure : element
+                for (com.thalesgroup.sonar.lib.model.v4.SizeComplexType.Resource.Measure measure : element
                         .getMeasure()) {
                     double measureValue = ParsingUtils.parseNumber(measure
                             .getValue());
