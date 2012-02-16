@@ -55,12 +55,7 @@ public class TUSARXmlParser {
     }
 
     private Sonar parseXMLFile(java.io.File file) throws SAXException, JAXBException, IOException {
-        /*ClassLoader cl =
-                com.thalesgroup.sonar.lib.model.v2.ObjectFactory.class.getClassLoader();
-
-
-        JAXBContext jc = JAXBContext.newInstance("com.thalesgroup.sonar.lib.model.v2", cl);*/
-    	ClassLoader cl =
+        ClassLoader cl =
             com.thalesgroup.sonar.lib.model.v4.ObjectFactory.class.getClassLoader();
 
 

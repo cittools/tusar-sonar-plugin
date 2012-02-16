@@ -27,6 +27,9 @@ import com.thalesgroup.sonar.lib.model.v4.SizeComplexType;
 import com.thalesgroup.sonar.lib.model.v4.Sonar;
 import com.thalesgroup.sonar.plugins.tusar.TUSARLanguage;
 import com.thalesgroup.sonar.plugins.tusar.TUSARResource;
+import com.thalesgroup.sonar.plugins.tusar.metrics.NewMetrics;
+import com.thalesgroup.sonar.plugins.tusar.newmeasures.NewMeasuresExtractor;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.SensorContext;
@@ -67,13 +70,19 @@ public class TUSARMeasuresDataExtractor {
             } else {
                 for (com.thalesgroup.sonar.lib.model.v4.SizeComplexType.Resource.Measure measure : element
                         .getMeasure()) {
-                    double measureValue = ParsingUtils.parseNumber(measure
-                            .getValue());
                     String measureKey = measure.getKey().toUpperCase();
                     Metric sonarMetric = metricsMapping.get(measureKey);
                     if (sonarMetric != null) {
+                    	double measureValue = ParsingUtils.parseNumber(measure
+                                .getValue());
                         context.saveMeasure(resource, new Measure(sonarMetric,
                                 measureValue));
+                    }
+                    else {
+                    	Metric unmanagedMetric = NewMetrics.contains(measureKey);
+                    	if (unmanagedMetric!=null){
+                    		NewMeasuresExtractor.treatMeasure(project, context, measure, element.getType(), element.getValue());
+                    	}
                     }
                 }
             }

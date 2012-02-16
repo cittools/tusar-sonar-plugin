@@ -22,21 +22,25 @@
 
 package com.thalesgroup.sonar.plugins.tusar;
 
-import com.thalesgroup.sonar.plugins.tusar.rulesrepository.TUSARRuleRepository;
-import com.thalesgroup.sonar.plugins.tusar.sensors.TUSARSensor;
-import com.thalesgroup.sonar.plugins.tusar.sensors.TUSARViolationsDataExtractor;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.sonar.api.Extension;
 import org.sonar.api.Plugin;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.thalesgroup.sonar.plugins.tusar.metrics.NewMetrics;
+import com.thalesgroup.sonar.plugins.tusar.rulesrepository.TUSARRuleRepository;
+import com.thalesgroup.sonar.plugins.tusar.sensors.TUSARSensor;
+import com.thalesgroup.sonar.plugins.tusar.sensors.TUSARViolationsDataExtractor;
+import com.thalesgroup.sonar.plugins.tusar.utils.Constants;
 
 /**
  * This class is the container for all others extensions
  */
-@Properties({@Property(key = TUSARPlugin.TUSAR_REPORTSPATHS_KEY, name = "TUSAR reports path", description = "Path (absolute or relative) to TUSAR xml reports directories. Separate paths by ';'", project = true, global = false)})
+@Properties({@Property(key = TUSARPlugin.TUSAR_REPORTSPATHS_KEY, name = "TUSAR reports path", description = "Path (absolute or relative) to TUSAR xml reports directories. Separate paths by ';'", project = true, global = false),
+		@Property(key=Constants.TUSAR_INI_FILE_PATH_KEY, name="Initialisation file path", project=true)})
 public class TUSARPlugin implements Plugin {
 
     public static final String KEY = "tusarplugin";
@@ -83,6 +87,9 @@ public class TUSARPlugin implements Plugin {
         // Declare the sensors : these classes are executed if their method
         // "shouldExecuteOnProject" returns true.
         list.add(TUSARSensor.class);
+        
+        //Getting the new metrics
+        list.add(NewMetrics.class);
 
         // Declare the decorators. These are executed after the sensors.
         // The decorators uses raw data from sensor, and calculate other
