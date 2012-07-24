@@ -75,8 +75,12 @@ public class TUSARMeasuresDataExtractor {
 					if (sonarMetric != null) {
 						double measureValue = ParsingUtils.parseNumber(measure
 								.getValue());
-						context.saveMeasure(resource, new Measure(sonarMetric,
+						try{
+							context.saveMeasure(resource, new Measure(sonarMetric,
 								measureValue));
+						}catch (Exception e) {
+							logger.warn("The measure "+sonarMetric.getName()+" has already been added for resource : "+resource.getLongName());
+						}
 					}
 					else {
 						Metric unmanagedMetric = NewMetrics.contains(measureKey);
@@ -194,7 +198,7 @@ public class TUSARMeasuresDataExtractor {
 				//}
 
 			} catch (NumberFormatException nfe) {
-
+				nfe.printStackTrace();
 			}
 
 		}

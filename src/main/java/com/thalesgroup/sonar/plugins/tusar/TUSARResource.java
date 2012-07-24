@@ -53,7 +53,7 @@ public class TUSARResource extends Resource<Directory> {
             throw new IllegalArgumentException("File key is null");
         }
         String realKey = parseKey(key);
-        if (realKey.indexOf(Directory.SEPARATOR) >= 0) {
+        if (realKey != null && realKey.indexOf(Directory.SEPARATOR) >= 0) {
             this.directoryKey = Directory.parseKey(StringUtils.substringBeforeLast(key, Directory.SEPARATOR));
             this.filename = StringUtils.substringAfterLast(realKey, Directory.SEPARATOR);
             realKey = new StringBuilder().append(this.directoryKey).append(Directory.SEPARATOR).append(filename).toString();
