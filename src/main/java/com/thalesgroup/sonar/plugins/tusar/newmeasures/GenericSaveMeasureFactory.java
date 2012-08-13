@@ -32,6 +32,7 @@ import org.sonar.api.measures.Measure;
 import org.sonar.api.measures.Metric;
 import org.sonar.api.measures.Metric.Level;
 import org.sonar.api.resources.Resource;
+import org.sonar.api.utils.SonarException;
 
 /**
  * Factory which creates GenericSaveMeasure
@@ -46,7 +47,7 @@ public abstract class GenericSaveMeasureFactory {
 				try{
 					Measure measure = new Measure(metric, Double.parseDouble(value));
 					sensorContext.saveMeasure(resource, measure);
-				}catch (Exception e) {
+				}catch (SonarException e) {
 					e.printStackTrace();
 				}
 			}
@@ -74,7 +75,7 @@ public abstract class GenericSaveMeasureFactory {
 				try{
 					Measure measure = new Measure(metric, Level.valueOf(value));
 					sensorContext.saveMeasure(resource, measure);
-				}catch (Exception e) {
+				}catch (SonarException e) {
 					e.printStackTrace();
 				}
 			}

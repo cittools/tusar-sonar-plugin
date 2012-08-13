@@ -6,7 +6,7 @@
     <groupId>com.thalesgroup.sonar.plugins</groupId>
     <artifactId>tusarplugin</artifactId>
     <packaging>jar</packaging>
-    <version>0.7.3-SNAPSHOT</version>
+    <version>0.7.3</version>
     <name>Sonar Plugin TUSAR Format</name>
 
     <properties>

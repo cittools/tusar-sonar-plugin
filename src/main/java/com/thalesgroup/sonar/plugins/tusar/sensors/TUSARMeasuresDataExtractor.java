@@ -22,13 +22,11 @@
 
 package com.thalesgroup.sonar.plugins.tusar.sensors;
 
-import com.thalesgroup.sonar.lib.model.v4.DuplicationsComplexType;
-import com.thalesgroup.sonar.lib.model.v4.SizeComplexType;
-import com.thalesgroup.sonar.lib.model.v4.Sonar;
-import com.thalesgroup.sonar.plugins.tusar.TUSARLanguage;
-import com.thalesgroup.sonar.plugins.tusar.TUSARResource;
-import com.thalesgroup.sonar.plugins.tusar.metrics.NewMetrics;
-import com.thalesgroup.sonar.plugins.tusar.newmeasures.NewMeasuresExtractor;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,12 +38,15 @@ import org.sonar.api.resources.Directory;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.utils.ParsingUtils;
+import org.sonar.api.utils.SonarException;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.thalesgroup.sonar.lib.model.v4.DuplicationsComplexType;
+import com.thalesgroup.sonar.lib.model.v4.SizeComplexType;
+import com.thalesgroup.sonar.lib.model.v4.Sonar;
+import com.thalesgroup.sonar.plugins.tusar.TUSARLanguage;
+import com.thalesgroup.sonar.plugins.tusar.TUSARResource;
+import com.thalesgroup.sonar.plugins.tusar.metrics.NewMetrics;
+import com.thalesgroup.sonar.plugins.tusar.newmeasures.NewMeasuresExtractor;
 
 /**
  * Contains methods to extract TUSAR tests data.
@@ -78,14 +79,14 @@ public class TUSARMeasuresDataExtractor {
 						try{
 							context.saveMeasure(resource, new Measure(sonarMetric,
 								measureValue));
-						}catch (Exception e) {
-							logger.warn("The measure "+sonarMetric.getName()+" has already been added for resource : "+resource.getLongName());
+						}catch (SonarException e) {
+							logger.warn("The measure "+sonarMetric.getName()+" (key:"+sonarMetric.getKey()+") has already been added for resource : "+resource.getLongName());
 						}
 					}
 					else {
 						Metric unmanagedMetric = NewMetrics.contains(measureKey);
 						if (unmanagedMetric!=null){
-							NewMeasuresExtractor.treatMeasure(project, context, measure, element.getType(), element.getValue());
+							NewMeasuresExtractor.treatMeasure(project, context, measure, resource);
 						}
 					}
 				}

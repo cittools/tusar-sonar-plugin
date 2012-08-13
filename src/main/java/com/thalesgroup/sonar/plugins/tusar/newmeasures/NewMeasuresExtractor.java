@@ -71,41 +71,16 @@ public class NewMeasuresExtractor {
 	 * @param resourceType The resource type ("FILE", "DIRECTORY", "PROJECT")
 	 * @param fileName The name of the file/directory/project (if project, not taken into account)
 	 */
-	public static void treatMeasure(Project project, SensorContext sensorContext, Measure measure, String resourceType, String fileName){
+	public static void treatMeasure(Project project, SensorContext sensorContext, Measure measure, Resource resource){
 		String type = measure.getKey();
 		String value = measure.getValue();
 		Metric metric = NewMetrics.contains(type);
 
-		String resourceTypeUpperCase = resourceType.toUpperCase();
+		//String resourceTypeUpperCase = resourceType.toUpperCase();
 
 		//The contains method of NewMetrics could be less time greedy by using one or two sets : one for unknown metrics and one for known metrics
 		if (metric != null){
-			//TODO : Has to be more generic...
-			if ("FILE".equals(resourceTypeUpperCase)){
-				if (!saveMeasures(project,sensorContext, project, metric, value, fileName)){
-					Resource resource = new org.sonar.api.resources.File(fileName);
-					System.out.println("Absolute file non existing key");
-					sensorContext.index(resource);
-					//Saving source if file exists
-					File source = new File(fileName);
-					if (source != null && source.exists()){
-						Utils.saveSource(sensorContext, source, resource, project.getFileSystem().getSourceCharset());
-					}
-					NewMeasuresExtractor.genericSaveMeasure.get(metric.getType()).saveMeasure(sensorContext, resource, metric, value);
-				}
-			}
-			else if ("DIRECTORY".equals(resourceTypeUpperCase)){
-				if (!saveMeasures(project,sensorContext, project, metric, value, fileName)){
-					Resource resource = new Directory(fileName);
-					System.out.println("Absolute dir non existing key");
-					sensorContext.index(resource);
-					NewMeasuresExtractor.genericSaveMeasure.get(metric.getType()).saveMeasure(sensorContext, resource, metric, value);
-				}
-			}
-			else if ("PROJECT".equals(resourceTypeUpperCase)){
-				NewMeasuresExtractor.genericSaveMeasure.get(metric.getType()).saveMeasure(sensorContext, project, metric, value);
-				System.out.println(metric+" "+value);
-			}
+			NewMeasuresExtractor.genericSaveMeasure.get(metric.getType()).saveMeasure(sensorContext, resource, metric, value);
 		}
 	}
 
