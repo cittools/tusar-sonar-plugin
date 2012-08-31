@@ -58,8 +58,7 @@ public class TUSARMeasuresDataExtractor {
 
 	private static HashMap<String, Metric> metricsMapping = constructMetricsMapping();
 
-	private static void processSize(SizeComplexType size,
-			SensorContext context, Project project) throws ParseException {
+	private static void processSize(SizeComplexType size, SensorContext context, Project project) throws ParseException {
 		for (com.thalesgroup.sonar.lib.model.v4.SizeComplexType.Resource element : size
 				.getResource()) {
 			Resource<?> resource = constructResource(element.getType(),
@@ -74,13 +73,20 @@ public class TUSARMeasuresDataExtractor {
 					String measureKey = measure.getKey().toUpperCase();
 					Metric sonarMetric = metricsMapping.get(measureKey);
 					if (sonarMetric != null) {
-						double measureValue = ParsingUtils.parseNumber(measure
-								.getValue());
-						try{
-							context.saveMeasure(resource, new Measure(sonarMetric,
-								measureValue));
-						}catch (SonarException e) {
-							logger.warn("The measure "+sonarMetric.getName()+" (key:"+sonarMetric.getKey()+") has already been added for resource : "+resource.getLongName());
+						if(measureKey.equalsIgnoreCase("class_complexity_distribution") || measureKey.equalsIgnoreCase("function_complexity_distribution") || measureKey.equalsIgnoreCase("file_complexity_distribution")){
+							String measureValue = measure.getValue();
+							try{
+								context.saveMeasure(resource, new Measure(sonarMetric,measureValue));
+							}catch (SonarException e) {
+								logger.warn("The measure "+sonarMetric.getName()+" (key:"+sonarMetric.getKey()+") has already been added for resource : "+resource.getLongName());
+							}
+						}else{
+							double measureValue = ParsingUtils.parseNumber(measure.getValue());
+							try{
+								context.saveMeasure(resource, new Measure(sonarMetric,measureValue));
+							}catch (SonarException e) {
+								logger.warn("The measure "+sonarMetric.getName()+" (key:"+sonarMetric.getKey()+") has already been added for resource : "+resource.getLongName());
+							}
 						}
 					}
 					else {

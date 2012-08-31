@@ -35,7 +35,8 @@ import com.thalesgroup.sonar.plugins.tusar.rulesrepository.TUSARRuleRepository;
 import com.thalesgroup.sonar.plugins.tusar.sensors.TUSARSensor;
 import com.thalesgroup.sonar.plugins.tusar.sensors.TUSARViolationsDataExtractor;
 import com.thalesgroup.sonar.plugins.tusar.utils.Constants;
-
+import com.thalesgroup.sonar.plugins.tusar.decorators.FilesDecorator;
+import com.thalesgroup.sonar.plugins.tusar.decorators.DirectoryDecorator;
 /**
  * This class is the container for all others extensions
  */
@@ -97,9 +98,10 @@ public class TUSARPlugin implements Plugin {
         // ie : Number of lines of code for the whole project is an addition of
         // lines of code of each file.
         // GBO - REMOVE unuse Directory
-        /*
-           * list.add(DirectoryDecorator.class); list.add(FilesDecorator.class);
-           */
+        
+        //  list.add(DirectoryDecorator.class); 
+		//  list.add(FilesDecorator.class);
+           
 
         // Declare the coverage viewer. This is a gwt page adding a new tab for
         // coverage.
