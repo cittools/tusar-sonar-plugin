@@ -71,7 +71,7 @@ public class NewMetrics implements Metrics {
 
 	public static Metric contains(String metric){
 		for (Metric m : metrics){
-			if (m.getName().toUpperCase().equals(metric.toUpperCase())){
+			if (m.getKey().toUpperCase().equals(metric.toUpperCase())){
 				return m;
 			}
 		}
@@ -95,7 +95,7 @@ public class NewMetrics implements Metrics {
 
 			for (String[] metricsData : csvData){
 				Utils.getLogger().info(metricsData[Constants.METRIC_NAME] + " " + metricsData[Constants.METRIC_TYPE] + " " + metricsData[Constants.METRIC_DOMAIN]);
-				NewMetrics.addNewMetric(new Builder(metricsData[Constants.METRIC_NAME].toLowerCase(),metricsData[Constants.METRIC_NAME].toLowerCase(),Metric.ValueType.valueOf(metricsData[Constants.METRIC_TYPE].toUpperCase())).setDirection(0).setQualitative(false).setDomain(metricsData[Constants.METRIC_DOMAIN]).create().setFormula(new SumChildValuesFormula(false)));
+				NewMetrics.addNewMetric(new Builder(Utils.convertToKeyNorm(metricsData[Constants.METRIC_NAME]),metricsData[Constants.METRIC_NAME],Metric.ValueType.valueOf(metricsData[Constants.METRIC_TYPE].toUpperCase())).setDirection(0).setQualitative(false).setDomain(metricsData[Constants.METRIC_DOMAIN]).create().setFormula(new SumChildValuesFormula(false)));
 			}
 		}
 		else {
@@ -108,7 +108,7 @@ public class NewMetrics implements Metrics {
 
 			for (String[] metricsData : csvData){
 				Utils.getLogger().info(metricsData[Constants.METRIC_NAME] + " " + metricsData[Constants.METRIC_TYPE] + " " + metricsData[Constants.METRIC_DOMAIN]);
-				NewMetrics.addNewMetric(new Builder(metricsData[Constants.METRIC_NAME].toLowerCase(),metricsData[Constants.METRIC_NAME].toLowerCase(),Metric.ValueType.valueOf(metricsData[Constants.METRIC_TYPE].toUpperCase())).setDirection(0).setQualitative(false).setDomain(metricsData[Constants.METRIC_DOMAIN]).create().setFormula(new SumChildValuesFormula(false)));
+				NewMetrics.addNewMetric(new Builder(Utils.convertToKeyNorm(metricsData[Constants.METRIC_NAME]),metricsData[Constants.METRIC_NAME],Metric.ValueType.valueOf(metricsData[Constants.METRIC_TYPE].toUpperCase())).setDirection(0).setQualitative(false).setDomain(metricsData[Constants.METRIC_DOMAIN]).create().setFormula(new SumChildValuesFormula(false)));
 			}
 		}
 

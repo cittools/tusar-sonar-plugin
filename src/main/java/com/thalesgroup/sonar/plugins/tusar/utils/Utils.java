@@ -110,5 +110,9 @@ public class Utils {
 	public static Logger getLogger() {
 		return logger;
 	}
+	
+	public static String convertToKeyNorm(String metricName){
+		return metricName.replaceAll(" ", "_").toLowerCase();
+	}
 
 }
