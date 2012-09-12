@@ -53,27 +53,27 @@ public class Utils {
 	 * @return a list of String[] which contains the name of the metrics, its type and its domain
 	 * @throws FileNotFoundException
 	 */
-	public static List<String[]> parseFile(File csvFile) throws FileNotFoundException{
+	public static List<String[]> parseIniFile(File csvFile) throws FileNotFoundException{
 		List<String[]> metrics = new ArrayList<String[]>();
 		if (!csvFile.getName().endsWith(Constants.CSV_EXTENSION)){
 			logger.warn(csvFile + " is not a CSVFile");
 			return metrics;
 		}
 		Scanner scanner = new Scanner(csvFile);
-		scanContent(scanner, metrics);
+		scanIniContent(scanner, metrics);
 		return metrics;
 	}
 	
-	public static List<String[]> parseInputStream(InputStream csvFile) throws FileNotFoundException{
+	public static List<String[]> parseIniInputStream(InputStream csvFile) throws FileNotFoundException{
 		List<String[]> metrics = new ArrayList<String[]>();
 		Scanner scanner = new Scanner(csvFile);
-		scanContent(scanner, metrics);
+		scanIniContent(scanner, metrics);
 		return metrics;
 	}
 	
 	
 	
-	private static void scanContent(Scanner scanner, List<String[]> metrics){
+	private static void scanIniContent(Scanner scanner, List<String[]> metrics){
 		while(scanner.hasNextLine()){
 			String line = scanner.nextLine();
 			if (!line.startsWith(Constants.COMMENTS)){
@@ -113,6 +113,25 @@ public class Utils {
 	
 	public static String convertToKeyNorm(String metricName){
 		return metricName.replaceAll(" ", "_").toLowerCase();
+	}
+	
+	/**
+	 * Function that returns the extensions available in file open into the given Scanner
+	 * @param scanner
+	 * @return An array of strings containing the file extensions
+	 */
+	public static String[] getExtensions(Scanner scanner){
+		List<String> extensions = new ArrayList<String>();
+		while(scanner.hasNextLine()){
+			String line = scanner.nextLine().trim();
+			if (line.startsWith(".")){
+				line = line.substring(1, line.length());
+			}
+			if (!line.isEmpty()){
+				extensions.add(line);
+			}
+		}
+		return extensions.toArray(new String[extensions.size()]);
 	}
 
 }

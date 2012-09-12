@@ -88,7 +88,7 @@ public class NewMetrics implements Metrics {
 		if (configFile!=null && configFile.exists()){
 			List<String[]> csvData = null;
 			try {
-				csvData = Utils.parseFile(configFile);
+				csvData = Utils.parseIniFile(configFile);
 			} catch (FileNotFoundException e) {
 				throw new NullPointerException(e.getMessage());
 			}
@@ -101,7 +101,7 @@ public class NewMetrics implements Metrics {
 		else {
 			List<String[]> csvData = null;
 			try {
-				csvData = Utils.parseInputStream(classLoader.getResourceAsStream(Constants.DEFAULT_CSV));
+				csvData = Utils.parseIniInputStream(classLoader.getResourceAsStream(Constants.DEFAULT_METRICS_CSV));
 			} catch (FileNotFoundException e) {
 				throw new NullPointerException(e.getMessage());
 			}
