@@ -169,7 +169,6 @@ public class TUSARSensor implements Sensor {
     				context.saveMeasure(children, CoreMetrics.LINE_COVERAGE, 0.0);
     				context.saveMeasure(children, CoreMetrics.LINES_TO_COVER, statementsValue);
     				context.saveMeasure(children, CoreMetrics.UNCOVERED_LINES, statementsValue);
-    				context.saveMeasure(children, CoreMetrics.BRANCH_COVERAGE, 0.0);
     			}
     		}
     	}
