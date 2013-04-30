@@ -1,0 +1,21 @@
+<%
+	if measure('memory_errors')
+		memory_errors = @snapshot.measure('memory_errors').formatted_value
+		memory_leaks = @snapshot.measure('memory_leaks').formatted_value
+		bytes_lost = @snapshot.measure('bytes_lost').formatted_value
+%>
+
+<div class="dashbox">
+  <h3>Memory</h3>
+  
+  <p><%= format_measure('memory_errors', :suffix => ' errors (other than memory leaks)', :url => url_for_drilldown('memory_errors')) -%> <%= tendency_icon(measure('memory_errors')) -%></p>
+  
+  <p><%= format_measure('memory_leaks', :suffix => ' memory leaks', :url => url_for_drilldown('memory_leaks')) -%> <%= tendency_icon(measure('memory_leaks')) -%></p>
+  
+  <p><%= format_measure('bytes_lost', :suffix => ' bytes lost', :url => url_for_drilldown('bytes_lost')) -%> <%= tendency_icon(measure('bytes_lost')) -%></p>
+  
+</div>
+
+<%
+	end
+%>

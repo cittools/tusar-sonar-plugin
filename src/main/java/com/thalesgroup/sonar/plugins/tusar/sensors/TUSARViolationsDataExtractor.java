@@ -22,8 +22,8 @@
 
 package com.thalesgroup.sonar.plugins.tusar.sensors;
 
-import com.thalesgroup.sonar.lib.model.v4.Sonar;
-import com.thalesgroup.sonar.lib.model.v4.ViolationsComplexType;
+import com.thalesgroup.sonar.lib.model.v5.Sonar;
+import com.thalesgroup.sonar.lib.model.v5.ViolationsComplexType;
 import com.thalesgroup.sonar.plugins.tusar.TUSARResource;
 import com.thalesgroup.sonar.plugins.tusar.rulesrepository.TUSARRuleRepository;
 import org.slf4j.Logger;

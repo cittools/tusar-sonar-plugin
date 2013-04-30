@@ -23,7 +23,7 @@
 package com.thalesgroup.sonar.plugins.tusar.sensors;
 
 import com.thalesgroup.dtkit.util.converter.ConversionServiceFactory;
-import com.thalesgroup.sonar.lib.model.v4.Sonar;
+import com.thalesgroup.sonar.lib.model.v5.Sonar;
 import com.thalesgroup.tusar.lib.convertor.Convertor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,10 +56,10 @@ public class TUSARXmlParser {
 
     private Sonar parseXMLFile(java.io.File file) throws SAXException, JAXBException, IOException {
         ClassLoader cl =
-            com.thalesgroup.sonar.lib.model.v4.ObjectFactory.class.getClassLoader();
+            com.thalesgroup.sonar.lib.model.v5.ObjectFactory.class.getClassLoader();
 
 
-    	JAXBContext jc = JAXBContext.newInstance("com.thalesgroup.sonar.lib.model.v4", cl);
+    	JAXBContext jc = JAXBContext.newInstance("com.thalesgroup.sonar.lib.model.v5", cl);
         Unmarshaller unmarshaller = jc.createUnmarshaller();
 
         Thread.currentThread().setContextClassLoader(ConversionServiceFactory.class.getClassLoader());
@@ -107,6 +107,11 @@ public class TUSARXmlParser {
                 TUSARMeasuresDataExtractor.saveToSonarMeasuresData(model, context, project);
                 logger.debug("Measures data extracted from {} and saved into Sonar", xmlFile.getAbsolutePath());
             }
+            
+            
+            
+           
+            
         } catch (JAXBException e) {
             throw new XMLStreamException("Can not parse TUSAR report : ", e);
         } catch (SAXException e) {

@@ -40,11 +40,13 @@ import org.sonar.api.resources.Resource;
 import org.sonar.api.utils.ParsingUtils;
 import org.sonar.api.utils.SonarException;
 
-import com.thalesgroup.sonar.lib.model.v4.DuplicationsComplexType;
-import com.thalesgroup.sonar.lib.model.v4.SizeComplexType;
-import com.thalesgroup.sonar.lib.model.v4.Sonar;
+import com.thalesgroup.sonar.lib.model.v5.DuplicationsComplexType;
+import com.thalesgroup.sonar.lib.model.v5.MemoryComplexType;
+import com.thalesgroup.sonar.lib.model.v5.SizeComplexType;
+import com.thalesgroup.sonar.lib.model.v5.Sonar;
 import com.thalesgroup.sonar.plugins.tusar.TUSARLanguage;
 import com.thalesgroup.sonar.plugins.tusar.TUSARResource;
+import com.thalesgroup.sonar.plugins.tusar.metrics.MemoryMetrics;
 import com.thalesgroup.sonar.plugins.tusar.metrics.NewMetrics;
 import com.thalesgroup.sonar.plugins.tusar.newmeasures.NewMeasuresExtractor;
 
@@ -57,9 +59,47 @@ public class TUSARMeasuresDataExtractor {
 	.getLogger(TUSARMeasuresDataExtractor.class);
 
 	private static HashMap<String, Metric> metricsMapping = constructMetricsMapping();
+	
+	private static void processMemory(MemoryComplexType memory, SensorContext context, Project project) throws ParseException {
+		for (com.thalesgroup.sonar.lib.model.v5.MemoryComplexType.Resource element : memory.getResource()) {
+			Resource<?> resource = constructResource(element.getType(), element.getValue(), project);
+			if (resource == null) {
+				logger.debug(
+						"Path is not valid, {} resource {} does not exists.",
+						element.getType(), element.getValue());
+			} else {
+				for (com.thalesgroup.sonar.lib.model.v5.MemoryComplexType.Resource.Measure measure : element.getMeasure()) {
+					String measureKey = measure.getKey().toUpperCase();
+					/* create the sonar metric */
+					//Metric sonarMetric = metricsMapping.get(measureKey);
+					Metric sonarMetric = MemoryMetrics.getMetric(measureKey);
+					/********** ***********/
+					if (sonarMetric != null) {
+						
+							double measureValue = ParsingUtils.parseNumber(measure.getValue());
+							try{
+								Measure m= new Measure(sonarMetric,measureValue);
+								context.saveMeasure(resource,m);
+							}catch (SonarException e) {
+								logger.warn("The measure "+sonarMetric.getName()+" (key:"+sonarMetric.getKey()+") has already been added for resource : "+resource.getLongName());
+							}
+						
+					}
+					else {
+						Metric unmanagedMetric = NewMetrics.contains(measureKey);
+						if (unmanagedMetric!=null){
+							NewMeasuresExtractor.treatMeasure(project, context, measure, resource);
+						}
+					}
+				}
+			}
+		}
+	}
+	
 
 	private static void processSize(SizeComplexType size, SensorContext context, Project project) throws ParseException {
-		for (com.thalesgroup.sonar.lib.model.v4.SizeComplexType.Resource element : size
+		
+		for (com.thalesgroup.sonar.lib.model.v5.SizeComplexType.Resource element : size
 				.getResource()) {
 			Resource<?> resource = constructResource(element.getType(),
 					element.getValue(), project);
@@ -68,7 +108,7 @@ public class TUSARMeasuresDataExtractor {
 						"Path is not valid, {} resource {} does not exists.",
 						element.getType(), element.getValue());
 			} else {
-				for (com.thalesgroup.sonar.lib.model.v4.SizeComplexType.Resource.Measure measure : element
+				for (com.thalesgroup.sonar.lib.model.v5.SizeComplexType.Resource.Measure measure : element
 						.getMeasure()) {
 					String measureKey = measure.getKey().toUpperCase();
 					Metric sonarMetric = metricsMapping.get(measureKey);
@@ -244,6 +284,12 @@ public class TUSARMeasuresDataExtractor {
 		if (duplications != null) {
 			processDuplications(duplications, context, project);
 			duplicationsData = new HashMap<Resource, ResourceData>();
+		}
+
+		// Memory
+		MemoryComplexType memory = model.getMeasures().getMemory();
+		if (memory != null) {
+			processMemory(memory, context, project);
 		}
 	}
 

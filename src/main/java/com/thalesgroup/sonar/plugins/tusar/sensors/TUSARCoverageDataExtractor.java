@@ -38,9 +38,9 @@ import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.utils.ParsingUtils;
 
-import com.thalesgroup.sonar.lib.model.v4.BranchCoverageComplexType;
-import com.thalesgroup.sonar.lib.model.v4.LineCoverageComplexType;
-import com.thalesgroup.sonar.lib.model.v4.Sonar;
+import com.thalesgroup.sonar.lib.model.v5.BranchCoverageComplexType;
+import com.thalesgroup.sonar.lib.model.v5.LineCoverageComplexType;
+import com.thalesgroup.sonar.lib.model.v5.Sonar;
 import com.thalesgroup.sonar.plugins.tusar.TUSARResource;
 
 /**
@@ -100,6 +100,7 @@ public class TUSARCoverageDataExtractor {
 
 	private static void processLineCoverage(Sonar model, SensorContext context, Project project) throws ParseException{
 		LineCoverageComplexType lineCoverage = model.getCoverage().getLineCoverage();
+		 logger.debug("processLineCoverag "+ model.getCoverage().getLineCoverage().toString());
 		if (lineCoverage != null){
 	    	for (LineCoverageComplexType.File file : model.getCoverage().getLineCoverage().getFile()) {
 	
@@ -126,8 +127,9 @@ public class TUSARCoverageDataExtractor {
 	
 	                //double coverage = calculateCoverage(coveredLines + coveredConditions, lines + conditions);
 	                //context.saveMeasure(resource, new Measure(CoreMetrics.COVERAGE, coverage));
-	
+	                logger.debug("saving. LINES_TO_COVER", lines);
 	                context.saveMeasure(resource, new Measure(CoreMetrics.LINES_TO_COVER, (double) lines));
+	                logger.debug("saving. LINE_COVERAGE", calculateCoverage(coveredLines, lines));
 	                context.saveMeasure(resource, new Measure(CoreMetrics.LINE_COVERAGE, calculateCoverage(coveredLines, lines)));
 	                context.saveMeasure(resource, new Measure(CoreMetrics.UNCOVERED_LINES, (double) lines - coveredLines));
 	                context.saveMeasure(resource, lineHitsBuilder.build().setPersistenceMode(PersistenceMode.DATABASE));

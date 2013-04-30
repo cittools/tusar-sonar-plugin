@@ -6,7 +6,7 @@
     <groupId>com.thalesgroup.sonar.plugins</groupId>
     <artifactId>tusarplugin</artifactId>
     <packaging>jar</packaging>
-    <version>0.7.4-SNAPSHOT</version>
+    <version>0.8.2</version>
     <name>Sonar Plugin TUSAR Format</name>
 
     <properties>
@@ -87,13 +87,19 @@
         <dependency>
             <groupId>com.thalesgroup.sonar.lib</groupId>
             <artifactId>sonar-model</artifactId>
-            <version>0.4</version>
+            <version>0.5</version>
         </dependency>
 
         <dependency>
             <groupId>com.thalesgroup.tusar.lib</groupId>
             <artifactId>tusar2SonarConverter</artifactId>
-            <version>0.4</version>
+            <version>0.5</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.thalesgroup.dtkit</groupId>
+            <artifactId>dtkit-tusar-model</artifactId>
+            <version>0.21</version>
         </dependency>
 
     </dependencies>
@@ -139,6 +145,13 @@
             <timezone>+1</timezone>
             <roles>
                 <role>Project tester</role>
+            </roles>
+        </contributor>
+         <contributor>
+            <name>Mohamed Koundoussi</name>
+            <timezone>+1</timezone>
+            <roles>
+                <role>development contributor</role>
             </roles>
         </contributor>
     </contributors>
