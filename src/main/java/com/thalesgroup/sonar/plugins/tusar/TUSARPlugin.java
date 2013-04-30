@@ -26,23 +26,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.sonar.api.Extension;
-import org.sonar.api.Plugin;
+import org.sonar.api.SonarPlugin;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
 
+import com.thalesgroup.sonar.plugins.tusar.metrics.MemoryMetrics;
+import com.thalesgroup.sonar.plugins.tusar.metrics.MemoryWidget;
 import com.thalesgroup.sonar.plugins.tusar.metrics.NewMetrics;
+import com.thalesgroup.sonar.plugins.tusar.rulesrepository.SonarTusarProfile;
+import com.thalesgroup.sonar.plugins.tusar.rulesrepository.TUSARProfile;
 import com.thalesgroup.sonar.plugins.tusar.rulesrepository.TUSARRuleRepository;
 import com.thalesgroup.sonar.plugins.tusar.sensors.TUSARSensor;
 import com.thalesgroup.sonar.plugins.tusar.sensors.TUSARViolationsDataExtractor;
 import com.thalesgroup.sonar.plugins.tusar.utils.Constants;
-import com.thalesgroup.sonar.plugins.tusar.decorators.FilesDecorator;
-import com.thalesgroup.sonar.plugins.tusar.decorators.DirectoryDecorator;
 /**
  * This class is the container for all others extensions
  */
-@Properties({@Property(key = TUSARPlugin.TUSAR_REPORTSPATHS_KEY, name = "TUSAR reports path", description = "Path (absolute or relative) to TUSAR xml reports directories. Separate paths by ';'", project = true, global = false),
-		@Property(key=Constants.TUSAR_INI_FILE_PATH_KEY, name="Initialisation file path", project=true)})
-public class TUSARPlugin implements Plugin {
+@Properties({
+	@Property(
+			key = TUSARPlugin.TUSAR_REPORTSPATHS_KEY, 
+			name = "TUSAR reports path", 
+			description = "Path (absolute or relative) to TUSAR xml reports directories. Separate paths by ';'", 
+			project = true, 
+			global = false
+			),
+	@Property(
+				key=Constants.TUSAR_INI_FILE_PATH_KEY, 
+				name="Initialisation file path", 
+				project=true
+			)
+	})
+
+public class TUSARPlugin extends SonarPlugin {
+
 
     public static final String KEY = "tusarplugin";
     public static final String NAME = "TUSAR Format Plugin";
@@ -52,29 +68,42 @@ public class TUSARPlugin implements Plugin {
     public static final String FILTERS_KEY = "sonar.tusar.filters";
 
     public static final String TUSAR_REPORTSPATHS_KEY = "sonar.tusar.reportsPaths";
+    
 
     // The key which uniquely identifies your plugin among all others Sonar
     // plugins
-    public String getKey() {
+   
+  /*  public String getKey() {
+    	
         return KEY;
     }
-
+    
+    
     public String getName() {
         return NAME;
     }
-
+    
+*/
     // This description will be displayed in the Configuration > Settings web
     // page
+    /*
     public String getDescription() {
         return DESCRIPTION;
     }
-
+    
+*/
     // This is where you're going to declare all your Sonar extensions
     public List<Class<? extends Extension>> getExtensions() {
+    
         List<Class<? extends Extension>> list = new ArrayList<Class<? extends Extension>>();
 
         // Declare the language used by the plugin
         list.add(TUSARLanguage.class);
+        /*************************************/
+        
+        
+      /*  list.add(SonarTusarProfile.class);
+        list.add(TUSARProfile.class);*/
 
         // Declare the source importer module
         list.add(SourceImporter.class);
@@ -91,6 +120,8 @@ public class TUSARPlugin implements Plugin {
         
         //Getting the new metrics
         list.add(NewMetrics.class);
+        list.add(MemoryMetrics.class);
+        list.add(MemoryWidget.class);
 
         // Declare the decorators. These are executed after the sensors.
         // The decorators uses raw data from sensor, and calculate other
@@ -111,8 +142,11 @@ public class TUSARPlugin implements Plugin {
         return list;
     }
 
-    @Override
+    /*
     public String toString() {
-        return getKey();
+        return KEY;
     }
+    */
+    
+    
 }

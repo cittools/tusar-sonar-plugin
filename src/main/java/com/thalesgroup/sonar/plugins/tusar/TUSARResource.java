@@ -197,14 +197,14 @@ public class TUSARResource extends Resource<Directory> {
      * @return SCOPE_ENTITY
      */
     public String getScope() {
-        return Resource.SCOPE_ENTITY;
+        return Scopes.FILE;
     }
 
     /**
      * @return QUALIFIER_UNIT_TEST_CLASS or QUALIFIER_FILE depending whether it is a unit test class
      */
     public String getQualifier() {
-        return unitTest ? Resource.QUALIFIER_UNIT_TEST_CLASS : Resource.QUALIFIER_FILE;
+        return unitTest ? Qualifiers.UNIT_TEST_FILE : Qualifiers.FILE;
     }
 
     /**

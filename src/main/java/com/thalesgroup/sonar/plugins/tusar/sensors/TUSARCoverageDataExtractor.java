@@ -38,9 +38,9 @@ import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.utils.ParsingUtils;
 
-import com.thalesgroup.sonar.lib.model.v4.BranchCoverageComplexType;
-import com.thalesgroup.sonar.lib.model.v4.LineCoverageComplexType;
-import com.thalesgroup.sonar.lib.model.v4.Sonar;
+import com.thalesgroup.sonar.lib.model.v5.BranchCoverageComplexType;
+import com.thalesgroup.sonar.lib.model.v5.LineCoverageComplexType;
+import com.thalesgroup.sonar.lib.model.v5.Sonar;
 import com.thalesgroup.sonar.plugins.tusar.TUSARResource;
 
 /**

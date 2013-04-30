@@ -36,11 +36,13 @@ import org.sonar.api.resources.DefaultProjectFileSystem;
 import org.sonar.api.resources.Directory;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
+import org.sonar.api.scan.filesystem.PathResolver;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.thalesgroup.sonar.lib.model.v4.SizeComplexType.Resource.Measure;
+import com.thalesgroup.sonar.lib.model.v5.SizeComplexType.Resource.Measure;
+import com.thalesgroup.sonar.lib.model.v5.MemoryComplexType;
 import com.thalesgroup.sonar.plugins.tusar.metrics.NewMetrics;
 import com.thalesgroup.sonar.plugins.tusar.utils.Utils;
 
@@ -76,13 +78,24 @@ public class NewMeasuresExtractor {
 		String value = measure.getValue();
 		Metric metric = NewMetrics.contains(type);
 
-		//String resourceTypeUpperCase = resourceType.toUpperCase();
-
-		//The contains method of NewMetrics could be less time greedy by using one or two sets : one for unknown metrics and one for known metrics
 		if (metric != null){
 			NewMeasuresExtractor.genericSaveMeasure.get(metric.getType()).saveMeasure(sensorContext, resource, metric, value);
 		}
 	}
+
+	/*********************koundous**************************************/
+	
+	public static void treatMeasure(Project project, SensorContext sensorContext, MemoryComplexType.Resource.Measure measure, Resource resource){
+		String type = measure.getKey();
+		String value = measure.getValue();
+		Metric metric = NewMetrics.contains(type);
+
+		if (metric != null) {
+			NewMeasuresExtractor.genericSaveMeasure.get(metric.getType()).saveMeasure(sensorContext, resource, metric, value);
+		}
+	}
+	
+	/***********************koundous*************************************/
 
 	/**
 	 * Function that saves a measure (metric+value) into Sonar.
@@ -104,7 +117,9 @@ public class NewMeasuresExtractor {
 					return true;
 				}
 				else {
-					String relativePath = DefaultProjectFileSystem.getRelativePath(new File(fileName), project.getFileSystem().getSourceDirs());
+					/************************************/
+					PathResolver resolver=new PathResolver();
+					String relativePath = resolver.relativePath(project.getFileSystem().getSourceDirs(),new File(fileName)).path();
 					if(relativePath!=null){
 						if (r.getKey().equals(relativePath)){
 							NewMeasuresExtractor.genericSaveMeasure.get(metric.getType()).saveMeasure(sensorContext, r, metric, metricValue);

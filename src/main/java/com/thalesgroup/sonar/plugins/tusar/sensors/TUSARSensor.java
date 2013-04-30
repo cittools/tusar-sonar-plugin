@@ -74,7 +74,9 @@ public class TUSARSensor implements Sensor {
     }
 
     public boolean shouldExecuteOnProject(Project project) {
-        return TUSARLanguage.INSTANCE.equals(project.getLanguage());
+    	boolean x=TUSARLanguage.INSTANCE.equals(project.getLanguage());
+        return x;
+    	
     }
 
     protected List<File> getReportsDirs(Project project, String key, String defaultPath) {

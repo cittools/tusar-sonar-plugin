@@ -24,9 +24,14 @@ package com.thalesgroup.sonar.plugins.tusar.sensors;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,19 +39,24 @@ import org.sonar.api.batch.SensorContext;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.Measure;
 import org.sonar.api.measures.Metric;
+import org.sonar.api.measures.PersistenceMode;
 import org.sonar.api.resources.Directory;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.utils.ParsingUtils;
 import org.sonar.api.utils.SonarException;
 
-import com.thalesgroup.sonar.lib.model.v4.DuplicationsComplexType;
-import com.thalesgroup.sonar.lib.model.v4.SizeComplexType;
-import com.thalesgroup.sonar.lib.model.v4.Sonar;
+import com.google.common.collect.Sets;
+import com.thalesgroup.sonar.lib.model.v5.DuplicationsComplexType;
+import com.thalesgroup.sonar.lib.model.v5.MemoryComplexType;
+import com.thalesgroup.sonar.lib.model.v5.SizeComplexType;
+import com.thalesgroup.sonar.lib.model.v5.Sonar;
 import com.thalesgroup.sonar.plugins.tusar.TUSARLanguage;
 import com.thalesgroup.sonar.plugins.tusar.TUSARResource;
+import com.thalesgroup.sonar.plugins.tusar.metrics.MemoryMetrics;
 import com.thalesgroup.sonar.plugins.tusar.metrics.NewMetrics;
 import com.thalesgroup.sonar.plugins.tusar.newmeasures.NewMeasuresExtractor;
+
 
 /**
  * Contains methods to extract TUSAR tests data.
@@ -57,9 +67,47 @@ public class TUSARMeasuresDataExtractor {
 	.getLogger(TUSARMeasuresDataExtractor.class);
 
 	private static HashMap<String, Metric> metricsMapping = constructMetricsMapping();
+	
+	private static void processMemory(MemoryComplexType memory, SensorContext context, Project project) throws ParseException {
+		for (com.thalesgroup.sonar.lib.model.v5.MemoryComplexType.Resource element : memory.getResource()) {
+			Resource<?> resource = constructResource(element.getType(), element.getValue(), project);
+			if (resource == null) {
+				logger.debug(
+						"Path is not valid, {} resource {} does not exists.",
+						element.getType(), element.getValue());
+			} else {
+				for (com.thalesgroup.sonar.lib.model.v5.MemoryComplexType.Resource.Measure measure : element.getMeasure()) {
+					String measureKey = measure.getKey().toUpperCase();
+					/* create the sonar metric */
+					//Metric sonarMetric = metricsMapping.get(measureKey);
+					Metric sonarMetric = MemoryMetrics.getMetric(measureKey);
+					/********** ***********/
+					if (sonarMetric != null) {
+						
+							double measureValue = ParsingUtils.parseNumber(measure.getValue());
+							try{
+								Measure m= new Measure(sonarMetric,measureValue);
+								context.saveMeasure(resource,m);
+							}catch (SonarException e) {
+								logger.warn("The measure "+sonarMetric.getName()+" (key:"+sonarMetric.getKey()+") has already been added for resource : "+resource.getLongName());
+							}
+						
+					}
+					else {
+						Metric unmanagedMetric = NewMetrics.contains(measureKey);
+						if (unmanagedMetric!=null){
+							NewMeasuresExtractor.treatMeasure(project, context, measure, resource);
+						}
+					}
+				}
+			}
+		}
+	}
+	
 
 	private static void processSize(SizeComplexType size, SensorContext context, Project project) throws ParseException {
-		for (com.thalesgroup.sonar.lib.model.v4.SizeComplexType.Resource element : size
+		
+		for (com.thalesgroup.sonar.lib.model.v5.SizeComplexType.Resource element : size
 				.getResource()) {
 			Resource<?> resource = constructResource(element.getType(),
 					element.getValue(), project);
@@ -68,7 +116,7 @@ public class TUSARMeasuresDataExtractor {
 						"Path is not valid, {} resource {} does not exists.",
 						element.getType(), element.getValue());
 			} else {
-				for (com.thalesgroup.sonar.lib.model.v4.SizeComplexType.Resource.Measure measure : element
+				for (com.thalesgroup.sonar.lib.model.v5.SizeComplexType.Resource.Measure measure : element
 						.getMeasure()) {
 					String measureKey = measure.getKey().toUpperCase();
 					Metric sonarMetric = metricsMapping.get(measureKey);
@@ -101,133 +149,233 @@ public class TUSARMeasuresDataExtractor {
 	}
 
 	static Map<Resource, ResourceData> duplicationsData = new HashMap<Resource, ResourceData>();
-
+	
+	static HashSet<String> duplicates=new HashSet<String>();
+	private static void addDuplicates(String path1, String startLine1, String path2, String startLine2){
+		String sig1=path1+"*"+startLine1+"*"+path2+"*"+startLine2;
+		duplicates.add(sig1);
+	}
+	private static boolean isNewBlock(String path1, String startLine1, String path2, String startLine2){
+		String sig1=path1+"*"+startLine1+"*"+path2+"*"+startLine2;
+		String sig2=path2+"*"+startLine2+"*"+path1+"*"+startLine1;
+		if(duplicates.contains(sig1) /*|| duplicates.contains(sig2)*/){
+			return false;
+		}else if(path1.equalsIgnoreCase(path2) && (duplicates.contains(sig1) || duplicates.contains(sig2))){
+			return false;
+		}
+		else {
+			return true;
+		}
+		
+		
+	}
+	
 	static class ResourceData {
 
-		private double duplicatedLines;
+		/*private double duplicatedLines;*/
+		private final Set<Integer> duplicatedLines=Sets.newHashSet();
 		private double duplicatedBlocks;
-		private List<StringBuilder> duplicationXMLEntries = new ArrayList<StringBuilder>();
+		private final List<XmlEntry> duplicationXMLEntries = new ArrayList<XmlEntry>();
 
 		private SensorContext context;
 		private Resource resource;
+		private String key;
+		
 
-		public ResourceData(SensorContext context, Resource resource) {
+		public ResourceData(SensorContext context, Resource resource, String path) {
 			this.context = context;
 			this.resource = resource;
+			Resource resolverdResource=context.getResource(resource);
+			
+			this.key=resolverdResource.getEffectiveKey();
 		}
+		
+		public void cumulate(HashSet<Part> parts, int duplicationStartLine, int duplicatedLines) {
+			
+			this.incrementDuplicatedBlock();
+			
+			duplicationXMLEntries.add(new XmlEntry(duplicationStartLine, duplicatedLines,parts));
+		    for (int duplicatedLine = duplicationStartLine; duplicatedLine < duplicationStartLine + duplicatedLines; duplicatedLine++) {
+		      this.duplicatedLines.add(duplicatedLine);
+		    }
+			
+		  }
 
-		public void cumulate(Resource targetResource,
-				Double targetDuplicationStartLine, Double duplicationStartLine,
-				Double duplicatedLines) {
-			Resource resolvedResource = context.getResource(targetResource);
-			if (resolvedResource != null) {
-				StringBuilder xml = new StringBuilder();
-				xml.append("<duplication lines=\"")
-				.append(duplicatedLines.intValue())
-				.append("\" start=\"")
-				.append(duplicationStartLine.intValue())
-				.append("\" target-start=\"")
-				.append(targetDuplicationStartLine.intValue())
-				.append("\" target-resource=\"")
-				.append(resolvedResource.getEffectiveKey())
-				.append("\"/>");
-				duplicationXMLEntries.add(xml);
-				this.duplicatedLines += duplicatedLines;
-				this.duplicatedBlocks++;
-			}
-		}
+		  public void incrementDuplicatedBlock() {
+		    duplicatedBlocks++;
+		  }
+		  private String getDuplicationXMLData() {
+			    Collections.sort(duplicationXMLEntries, COMPARATOR);
+			    StringBuilder duplicationXML = new StringBuilder("<duplications>");
+			    for (XmlEntry xmlEntry : duplicationXMLEntries) {
+			      duplicationXML.append(xmlEntry.toString());
+			    }
+			    duplicationXML.append("</duplications>");
+			   // logger.info(duplicationXML.toString());
+			    return duplicationXML.toString();
+			 }
 
-		public void saveUsing(SensorContext context) {
-			context.saveMeasure(resource, CoreMetrics.DUPLICATED_FILES, 1d);
-			context.saveMeasure(resource, CoreMetrics.DUPLICATED_LINES,
-					duplicatedLines);
-			context.saveMeasure(resource, CoreMetrics.DUPLICATED_BLOCKS,
-					duplicatedBlocks);
-			StringBuilder duplicationXML = new StringBuilder("<duplications>");
-			for (StringBuilder xmlEntry : duplicationXMLEntries) {
-				duplicationXML.append(xmlEntry);
+			  private static final Comparator<XmlEntry> COMPARATOR = new Comparator<XmlEntry>() {
+			    public int compare(XmlEntry o1, XmlEntry o2) {
+			      if (o1.startLine == o2.startLine) {
+			        return o1.lines - o2.lines;
+			      }
+			      return o1.startLine - o2.startLine;
+			    }
+			  };
+
+			  private final class XmlEntry {
+			   
+			    private final int startLine;
+			    private final int lines;
+			    private HashSet<Part> parts;//resource key,string startline
+			  
+			   
+			    private XmlEntry(int startLine, int lines,HashSet<Part> parts){
+			    	 this.startLine = startLine;
+				     this.lines = lines;
+				     this.parts=parts;
+			    }
+			  
+
+			    @Override
+			    public String toString() {
+			      StringBuilder str= new StringBuilder();
+			          str.append("<g>")
+			          .append("<b s=\"").append(startLine).append("\" l=\"").append(lines).append("\" r=\"").append(key).append("\" />");
+			          for(Part ekey:parts){
+			        	  String targetStartLine=ekey.startLine;
+			        	  str.append("<b s=\"").append(targetStartLine).append("\" l=\"").append(lines).append("\" r=\"").append(ekey.key).append("\" />");
+			          }			         
+			          str.append("</g>");
+			
+			      
+			      return str.toString();
+			    }
+		  
+			  }
+		  
+		  
+		public void saveUsing(SensorContext context, Resource targetResource) {
+			logger.info("**************"+targetResource+"***********");
+			context.saveMeasure(targetResource, CoreMetrics.DUPLICATED_FILES, 1d);
+			logger.info("**** dupliacted files "+1d);
+			context.saveMeasure(targetResource, CoreMetrics.DUPLICATED_LINES,(double)duplicatedLines.size());
+			logger.info("**** dupliacted lines "+(double)duplicatedLines.size());
+			context.saveMeasure(targetResource, CoreMetrics.DUPLICATED_BLOCKS,duplicatedBlocks);
+			logger.info("**** dupliacted blocks "+duplicatedBlocks);
+			
+			 Measure data = new Measure(CoreMetrics.DUPLICATIONS_DATA, getDuplicationXMLData()).setPersistenceMode(PersistenceMode.DATABASE);
+		   
+			 
+			 logger.info(" *****************  \n * "+data.getData());
+			try{ 
+			 	context.saveMeasure(targetResource, data);
+			}catch(Exception e){
+				logger.error(e.getMessage());
 			}
-			duplicationXML.append("</duplications>");
-			context.saveMeasure(resource, new Measure(
-					CoreMetrics.DUPLICATIONS_DATA, duplicationXML.toString()));
+			 logger.info("**** data \n"+data+"\n");
 		}
 	}
 
-	private static void processDuplications(
-			DuplicationsComplexType duplications, SensorContext context,
-			Project project) throws ParseException {
+	private static void processDuplications(DuplicationsComplexType duplications, SensorContext context, Project project) throws ParseException {
+		
+		Map<Resource, ResourceData> duplicationsData=new HashMap<Resource, ResourceData>();
+		
 		for (DuplicationsComplexType.Set duplicationSet : duplications.getSet()) {
+			
+			
 			try {
 
 				// Record for each resource which is a file
 				List<DuplicationsComplexType.Set.Resource> resources = duplicationSet.getResource();
+				
+			   boolean isSingleFile=true;
+			   
+			   search:
 				for (int i =0; i<resources.size(); i++){
-
-					DuplicationsComplexType.Set.Resource duplicationResource1 = resources.get(i);
-
-					for (int j =i+1;j<resources.size();j++){
-						DuplicationsComplexType.Set.Resource duplicationResource2 = resources.get(j);
-						if (duplicationResource1 != duplicationResource2){
-							Resource<?> resource1 = constructResource("FILE",
-									duplicationResource1.getPath(), project);
-
-							Resource<?> resource2 = constructResource("FILE",
-									duplicationResource2.getPath(), project);
-
-							processClassMeasure(context, resource1, resource2,
-									Double.parseDouble(duplicationResource2.getLine()),
-									Double.parseDouble(duplicationResource1.getLine()),
-									Double.parseDouble(duplicationSet.getLines()));
-
-							processClassMeasure(context, resource2, resource1,
-									Double.parseDouble(duplicationResource1.getLine()),
-									Double.parseDouble(duplicationResource2.getLine()),
-									Double.parseDouble(duplicationSet.getLines()));
+					
+					DuplicationsComplexType.Set.Resource duplicationResourcei = resources.get(i);
+					for (int j =0; j<resources.size(); j++){
+						DuplicationsComplexType.Set.Resource duplicationResourcej = resources.get(j);
+						if(!(duplicationResourcei.getPath().equalsIgnoreCase(duplicationResourcej.getPath()))){
+							isSingleFile=false;
+							break search;
 						}
 					}
+					
 				}
+			   
+				loo:
+				for (int i=0; i<resources.size(); i++){
+					
+					if(i>0 && isSingleFile==true){
+						break loo;
+					}
 
-				/*
-				 * if (resource == null) { logger.debug(
-				 * "Path is not valid, {} resource {} does not exists."
-				 * ,"FILE", duplicationResource.getPath()); } else {
-				 *
-				 * //context.saveMeasure(resource,
-				 * CoreMetrics.DUPLICATED_FILES, 1d);
-				 * context.saveMeasure(resource,
-				 * CoreMetrics.DUPLICATED_LINES, duplicatedLines);
-				 * context.saveMeasure(resource,
-				 * CoreMetrics.DUPLICATED_BLOCKS, 0d);
-				 * context.saveMeasure(resource, new
-				 * Measure(CoreMetrics.DUPLICATIONS_DATA,
-				 * duplicationSet.getCodefragment())); }
-				 */
-				//}
+					DuplicationsComplexType.Set.Resource duplicationResource1 = resources.get(i);
+					Resource<?> resource1 = constructResource("FILE",duplicationResource1.getPath(), project);
+					if(resource1==null){
+						logger.warn("resource 1 null");
+						continue;
+					}
+					
+					ResourceData firstFileData=getDuplicationsData(context,duplicationsData,resource1,duplicationResource1.getPath());
+					
+					
+					HashSet<Part> parts=new HashSet<Part>();
+					
+					for (int j =0;j<resources.size();j++) {
+						
+						DuplicationsComplexType.Set.Resource duplicationResource2 = resources.get(j);
+						if ((duplicationResource1.getPath() == duplicationResource2.getPath()) && (Double.parseDouble(duplicationResource1.getLine())==Double.parseDouble(duplicationResource2.getLine()))){
+							continue;
+						}
+						
+						Resource<?> resource2 = constructResource("FILE",duplicationResource2.getPath(), project);
+						if(resource2==null){
+							logger.warn("resource 2 null");
+							continue;
+						}
+						
+						Resource resolvResource=context.getResource(resource2);
+						String key2=resolvResource.getEffectiveKey();
+						String start2=duplicationResource2.getLine();
+						Part part=new Part(key2,start2);
+						parts.add(part);
 
+						//addDuplicates(duplicationResource1.getPath(),duplicationResource1.getLine(),duplicationResource2.getPath(),duplicationResource2.getLine());
+					
+					}
+					
+					firstFileData.cumulate(parts, Integer.parseInt(duplicationResource1.getLine()), Integer.parseInt(duplicationSet.getLines()));
+				
+				}
+						
+					
 			} catch (NumberFormatException nfe) {
-				nfe.printStackTrace();
+				
+				logger.error(nfe.getMessage());
 			}
 
 		}
-		for (ResourceData data : duplicationsData.values()) {
-			data.saveUsing(context);
+		
+		for(Map.Entry<Resource, ResourceData> entry:duplicationsData.entrySet()){
+			entry.getValue().saveUsing(context, entry.getKey());
 		}
+		
 	}
-
-	private static void processClassMeasure(SensorContext context,
-			Resource<?> resource, Resource<?> targetResource,
-			Double targetDuplicationStartLine, Double duplicationStartLine,
-			Double duplicatedLines) throws ParseException {
-
-		ResourceData data = duplicationsData.get(resource);
-		if (data == null) {
-			data = new ResourceData(context, resource);
-			duplicationsData.put(resource, data);
+	
+	private static ResourceData getDuplicationsData(SensorContext context,Map<Resource, ResourceData> fileContainer, Resource file, String resourcePath){
+		ResourceData data=fileContainer.get(file);
+		if(data==null){
+			data = new ResourceData(context,file,resourcePath);
+			fileContainer.put(file, data);
 		}
-		data.cumulate(targetResource, targetDuplicationStartLine,
-				duplicationStartLine, duplicatedLines);
-
+		return data;
 	}
+	
+	
 
 	public static void saveToSonarMeasuresData(Sonar model,
 			SensorContext context, Project project) throws ParseException {
@@ -244,6 +392,13 @@ public class TUSARMeasuresDataExtractor {
 		if (duplications != null) {
 			processDuplications(duplications, context, project);
 			duplicationsData = new HashMap<Resource, ResourceData>();
+			duplicates=new HashSet<String>();
+		}
+
+		// Memory
+		MemoryComplexType memory = model.getMeasures().getMemory();
+		if (memory != null) {
+			processMemory(memory, context, project);
 		}
 	}
 
@@ -259,32 +414,92 @@ public class TUSARMeasuresDataExtractor {
 			String resourcePath, Project project) {
 
 		if ("PROJECT".equals(resourceType.toUpperCase())) {
-			// TBD : nom du projet dans le fichier xml doit correspondre au nom
-			// du projet dans hudson/sonar
-			//return new Project(resourcePath);
+
 			return project;
 		} else if ("DIRECTORY".equals(resourceType.toUpperCase())) {
 			return new Directory(resourcePath, new TUSARLanguage());
 		} else if ("FILE".equals(resourceType.toUpperCase())) {
-			// for file, we uses the TUSARResource element, which is as a FILE
+		
 			return TUSARResource.fromAbsOrRelativePath(resourcePath, project,
 					false);
 		}
 
-		/*
-		 * else if ("PACKAGE".equals(resourceType)){ // TDB : package uniquement
-		 * utilisable avec java, mettre des protections. return new
-		 * JavaPackage(resourcePath); } else if ("CLASS".equals(resourceType)){
-		 * // TDB : class uniquement utilisable avec java, mettre des
-		 * protections. return JavaFile.fromAbsolutePath(resourcePath,
-		 * project.getFileSystem().getSourceDirs(), false); } else if
-		 * ("UNIT_TEST_CLASS".equals(resourceType)){ // TDB : package uniquement
-		 * utilisable avec java, mettre des protections. return
-		 * JavaFile.fromAbsolutePath(resourcePath,
-		 * project.getFileSystem().getSourceDirs(), true); }
-		 */
+	
 		else {
 			return null;
 		}
 	}
+	
+	public static void main(String[] args){
+		
+		ArrayList<String> parts=null;
+		
+		ArrayList<String> bloc;
+		ArrayList<ArrayList<String>> dupSets=new ArrayList<ArrayList<String>>();
+		bloc=new ArrayList<String>();
+		bloc.add("file1");
+		bloc.add("file1");
+		bloc.add("file1");
+		dupSets.add(bloc);
+		bloc=new ArrayList<String>();
+		bloc.add("file2");
+		bloc.add("file3");
+		bloc.add("file4");
+		dupSets.add(bloc);
+		bloc=new ArrayList<String>();
+		bloc.add("file5");
+		bloc.add("file5");
+		dupSets.add(bloc);
+				
+		
+		for (int k=0; k<dupSets.size();k++) {
+			
+			ArrayList<String> set=dupSets.get(k);
+			
+			
+			boolean isSingleFile=true;
+			search:				
+				for (int i=0;i<set.size();i++){
+					
+					
+					String duplicationResourcei = set.get(i);
+					
+					for (int j=0;j<set.size();j++){
+						
+						String duplicationResourcej = set.get(j);
+						
+						if(duplicationResourcej!=duplicationResourcei){
+							isSingleFile=false;
+							break search;
+						}
+					}
+					
+				}
+			
+				loo:
+					for (int i=0;i<set.size();i++){
+						parts=new ArrayList<String>();
+						String duplicationResourcei = set.get(i);
+						if(isSingleFile && i==1){
+							
+							break loo;
+						}
+						
+						for (int j=0;j<set.size();j++){
+							String duplicationResourcej = set.get(j);
+							parts.add(duplicationResourcej);
+						}
+						
+						System.out.println("*****Bloc:  "+duplicationResourcei+"*********");
+						for(String file:parts){
+							System.out.println("-- "+file);
+							}
+				}
+				
+				
+		}
+	}
+	
+	
+	
 }
