@@ -41,7 +41,8 @@ import com.thalesgroup.sonar.plugins.tusar.utils.Constants;
  * This class is the container for all others extensions
  */
 @Properties({@Property(key = TUSARPlugin.TUSAR_REPORTSPATHS_KEY, name = "TUSAR reports path", description = "Path (absolute or relative) to TUSAR xml reports directories. Separate paths by ';'", project = true, global = false),
-		@Property(key=Constants.TUSAR_INI_FILE_PATH_KEY, name="Initialisation file path", project=true)})
+		@Property(key=Constants.TUSAR_INI_FILE_PATH_KEY, name="Initialisation file path", project=true),
+		@Property(key=Constants.TUSAR_EXTENSIONS_FILE_PATH_KEY, name="Extensions file path", project=true)})
 public class TUSARPlugin implements Plugin {
 
 

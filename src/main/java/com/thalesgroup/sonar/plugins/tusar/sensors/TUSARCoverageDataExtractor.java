@@ -50,8 +50,14 @@ public class TUSARCoverageDataExtractor {
 
     private static Logger logger = LoggerFactory.getLogger(TUSARCoverageDataExtractor.class);
     private static String FILE_RESSOURCE_TYPE="File";
+    
+    private static boolean lineCoverageInTusar = false;
 
-    public static void saveToSonarCoverageData(Sonar model, SensorContext context, Project project) throws ParseException {
+    public static boolean isLineCoverageInTusar() {
+		return lineCoverageInTusar;
+	}
+
+	public static void saveToSonarCoverageData(Sonar model, SensorContext context, Project project) throws ParseException {
 
         processLineCoverage(model, context, project);
         processBranchCoverage(model, context, project);
@@ -103,7 +109,9 @@ public class TUSARCoverageDataExtractor {
 		 logger.debug("processLineCoverag "+ model.getCoverage().getLineCoverage().toString());
 		if (lineCoverage != null){
 	    	for (LineCoverageComplexType.File file : model.getCoverage().getLineCoverage().getFile()) {
-	
+	    		
+	    		lineCoverageInTusar = true;
+	    		
 	            Resource resource = TUSARResource.fromAbsOrRelativePath(file.getPath(), project, false);
 	
 	            if (resource == null) {
