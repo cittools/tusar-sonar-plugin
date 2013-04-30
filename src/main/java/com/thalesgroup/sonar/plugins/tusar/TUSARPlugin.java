@@ -36,9 +36,12 @@ import com.thalesgroup.sonar.plugins.tusar.metrics.NewMetrics;
 import com.thalesgroup.sonar.plugins.tusar.rulesrepository.SonarTusarProfile;
 import com.thalesgroup.sonar.plugins.tusar.rulesrepository.TUSARProfile;
 import com.thalesgroup.sonar.plugins.tusar.rulesrepository.TUSARRuleRepository;
+
 import com.thalesgroup.sonar.plugins.tusar.sensors.TUSARSensor;
+
 import com.thalesgroup.sonar.plugins.tusar.sensors.TUSARViolationsDataExtractor;
 import com.thalesgroup.sonar.plugins.tusar.utils.Constants;
+
 /**
  * This class is the container for all others extensions
  */

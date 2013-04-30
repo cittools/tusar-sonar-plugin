@@ -5,16 +5,10 @@
 
     <groupId>com.thalesgroup.sonar.plugins</groupId>
     <artifactId>tusarplugin</artifactId>
-<<<<<<< HEAD
     <packaging>sonar-plugin</packaging>
     <description>tusar plugin</description>
     <version>1.0.0</version>
     <name>Sonar TUSAR Format Plugin</name>
-=======
-    <packaging>jar</packaging>
-    <version>0.8.2</version>
-    <name>Sonar Plugin TUSAR Format</name>
->>>>>>> 3365beeca93509bebbd22339dd35003a86c7ebc1
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -103,15 +97,12 @@
             <groupId>com.thalesgroup.tusar.lib</groupId>
             <artifactId>tusar2SonarConverter</artifactId>
             <version>0.5</version>
-<<<<<<< HEAD
         </dependency>
         
         <dependency>
             <groupId>com.thalesgroup.dtkit</groupId>
             <artifactId>dtkit-tusar-model</artifactId>
             <version>0.21</version>
-=======
->>>>>>> 3365beeca93509bebbd22339dd35003a86c7ebc1
         </dependency>
 
     </dependencies>

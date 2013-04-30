@@ -46,10 +46,10 @@ import org.sonar.api.resources.Resource;
 import org.sonar.api.utils.ParsingUtils;
 import org.sonar.api.utils.SonarException;
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 import com.google.common.collect.Sets;
-=======
->>>>>>> 3365beeca93509bebbd22339dd35003a86c7ebc1
+//=======
+//>>>>>>> 3365beeca93509bebbd22339dd35003a86c7ebc1
 import com.thalesgroup.sonar.lib.model.v5.DuplicationsComplexType;
 import com.thalesgroup.sonar.lib.model.v5.MemoryComplexType;
 import com.thalesgroup.sonar.lib.model.v5.SizeComplexType;
@@ -405,11 +405,7 @@ public class TUSARMeasuresDataExtractor {
 			processMemory(memory, context, project);
 		}
 
-		// Memory
-		MemoryComplexType memory = model.getMeasures().getMemory();
-		if (memory != null) {
-			processMemory(memory, context, project);
-		}
+	
 	}
 
 	private static HashMap<String, Metric> constructMetricsMapping() {
