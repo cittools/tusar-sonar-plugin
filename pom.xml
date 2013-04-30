@@ -95,12 +95,6 @@
             <artifactId>tusar2SonarConverter</artifactId>
             <version>0.5</version>
         </dependency>
-        
-        <dependency>
-            <groupId>com.thalesgroup.dtkit</groupId>
-            <artifactId>dtkit-tusar-model</artifactId>
-            <version>0.21</version>
-        </dependency>
 
     </dependencies>
 

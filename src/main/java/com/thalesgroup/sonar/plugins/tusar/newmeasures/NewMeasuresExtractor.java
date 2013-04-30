@@ -73,10 +73,11 @@ public class NewMeasuresExtractor {
 	 * @param fileName The name of the file/directory/project (if project, not taken into account)
 	 */
 	public static void treatMeasure(Project project, SensorContext sensorContext, Measure measure, Resource resource){
-		String type = measure.getKey();
+		String key = Utils.convertToKeyNorm(measure.getKey());
 		String value = measure.getValue();
-		Metric metric = NewMetrics.contains(type);
+		Metric metric = NewMetrics.contains(key);
 
+		//The contains method of NewMetrics could be less time greedy by using one or two sets : one for unknown metrics and one for known metrics
 		if (metric != null){
 			NewMeasuresExtractor.genericSaveMeasure.get(metric.getType()).saveMeasure(sensorContext, resource, metric, value);
 		}
