@@ -83,7 +83,12 @@ public class TUSARTestsDataExtractor {
                 TestCaseDetails testCaseDetails = new TestCaseDetails();
 
                 testCaseDetails.setName(testCase.getTestname());
-                testCaseDetails.setTimeMS(getTimeAttributeInMS(testCase.getTime()).intValue());
+                if (testCase.getTime() == null){
+                	testCaseDetails.setTimeMS(0);
+                }
+                else {
+                	testCaseDetails.setTimeMS(getTimeAttributeInMS(testCase.getTime()).intValue());
+                }
 
                 //testCase.getAssertions();
                 //testCase.getFilename();

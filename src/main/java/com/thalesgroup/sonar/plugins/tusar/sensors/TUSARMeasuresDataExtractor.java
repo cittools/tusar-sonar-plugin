@@ -56,6 +56,7 @@ import com.thalesgroup.sonar.plugins.tusar.TUSARResource;
 import com.thalesgroup.sonar.plugins.tusar.metrics.MemoryMetrics;
 import com.thalesgroup.sonar.plugins.tusar.metrics.NewMetrics;
 import com.thalesgroup.sonar.plugins.tusar.newmeasures.NewMeasuresExtractor;
+import com.thalesgroup.sonar.plugins.tusar.utils.Utils;
 
 
 /**
@@ -138,7 +139,7 @@ public class TUSARMeasuresDataExtractor {
 						}
 					}
 					else {
-						Metric unmanagedMetric = NewMetrics.contains(measureKey);
+						Metric unmanagedMetric = NewMetrics.contains(Utils.convertToKeyNorm(measureKey));
 						if (unmanagedMetric!=null){
 							NewMeasuresExtractor.treatMeasure(project, context, measure, resource);
 						}

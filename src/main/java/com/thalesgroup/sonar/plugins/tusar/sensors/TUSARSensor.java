@@ -28,7 +28,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.measures.CoreMetrics;
+import org.sonar.api.measures.Measure;
+import org.sonar.api.measures.PersistenceMode;
+import org.sonar.api.measures.PropertiesBuilder;
 import org.sonar.api.resources.Project;
+import org.sonar.api.resources.Qualifiers;
+import org.sonar.api.resources.Resource;
 import org.sonar.api.utils.XmlParserException;
 
 import javax.xml.stream.XMLStreamException;
@@ -70,6 +76,11 @@ public class TUSARSensor implements Sensor {
             } catch (XMLStreamException e) {
                 throw new XmlParserException(e);
             }
+        }
+        
+        //Set the coverage of files without coverage metrics
+        if (TUSARCoverageDataExtractor.isLineCoverageInTusar()){
+        	setLineCoverageToZero(project, context);
         }
     }
 
@@ -139,5 +150,29 @@ public class TUSARSensor implements Sensor {
     @Override
     public String toString() {
         return getClass().getSimpleName();
+    }
+    
+    private void setLineCoverageToZero(Resource resource, SensorContext context){
+    	if (resource == null){
+			return;
+		}
+    	for (Resource children : context.getChildren(resource)){
+    		setLineCoverageToZero(children, context);
+    		if (children.getScope()==Qualifiers.FILE ){
+    			
+    			Measure linesToCover = context.getMeasure(children, CoreMetrics.LINES_TO_COVER);
+    			Measure lineCoverage = context.getMeasure(children, CoreMetrics.LINE_COVERAGE);
+    			Measure uncoveredLines = context.getMeasure(children, CoreMetrics.UNCOVERED_LINES);
+    			Measure statements = context.getMeasure(children, CoreMetrics.STATEMENTS);
+
+    			
+    			if (lineCoverage == null && linesToCover == null && uncoveredLines == null && statements != null){
+    				double statementsValue = statements.getValue();
+    				context.saveMeasure(children, CoreMetrics.LINE_COVERAGE, 0.0);
+    				context.saveMeasure(children, CoreMetrics.LINES_TO_COVER, statementsValue);
+    				context.saveMeasure(children, CoreMetrics.UNCOVERED_LINES, statementsValue);
+    			}
+    		}
+    	}
     }
 }

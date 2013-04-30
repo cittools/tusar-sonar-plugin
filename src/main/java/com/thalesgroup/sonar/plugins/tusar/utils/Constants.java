@@ -39,7 +39,8 @@ public class Constants {
 	public static final int METRIC_DOMAIN = 2;
 
 	//CSV file
-	public static final String DEFAULT_CSV = "com/thalesgroup/sonar/plugins/tusar/newmetrics.csv";
+	public static final String DEFAULT_METRICS_CSV = "com/thalesgroup/sonar/plugins/tusar/newmetrics.csv";
+	public static final String DEFAULT_EXTENSIONS_FILE = "com/thalesgroup/sonar/plugins/tusar/file_extension";
 	public static final String CSV_EXTENSION = ".csv";
 	
 	//XML
@@ -48,5 +49,6 @@ public class Constants {
 	//Plugin properties
 	public static final String USER_MEASURES_REPORTS_PATHS_KEY = "sonar.tusar.reportsPaths";
 	public static final String TUSAR_INI_FILE_PATH_KEY = "sonar.tusar.iniFilePaths";
+	public static final String TUSAR_EXTENSIONS_FILE_PATH_KEY = "sonar.tusar.extFilePaths";
 
 }
