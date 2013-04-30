@@ -28,17 +28,16 @@ import com.thalesgroup.tusar.lib.convertor.Convertor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.measures.CoreMetrics;
+import org.sonar.api.measures.Measure;
 import org.sonar.api.resources.Project;
+import org.sonar.api.resources.Qualifiers;
+import org.sonar.api.resources.Resource;
 import org.xml.sax.SAXException;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.stream.XMLStreamException;
-import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.Collection;
+import com.thalesgroup.dtkit.util.converter.ConversionServiceFactory;
+import com.thalesgroup.sonar.lib.model.v4.Sonar;
+import com.thalesgroup.tusar.lib.convertor.Convertor;
 
 /**
  * Used to parse an xml report in TUSAR format. It is based on jaxb2.

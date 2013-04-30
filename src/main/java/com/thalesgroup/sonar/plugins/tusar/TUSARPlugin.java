@@ -54,7 +54,8 @@ import com.thalesgroup.sonar.plugins.tusar.utils.Constants;
 				key=Constants.TUSAR_INI_FILE_PATH_KEY, 
 				name="Initialisation file path", 
 				project=true
-			)
+			),
+	@Property(key=Constants.TUSAR_EXTENSIONS_FILE_PATH_KEY, name="Extensions file path", project=true)
 	})
 
 public class TUSARPlugin extends SonarPlugin {

@@ -74,9 +74,9 @@ public class NewMeasuresExtractor {
 	 * @param fileName The name of the file/directory/project (if project, not taken into account)
 	 */
 	public static void treatMeasure(Project project, SensorContext sensorContext, Measure measure, Resource resource){
-		String type = measure.getKey();
+		String key = Utils.convertToKeyNorm(measure.getKey());
 		String value = measure.getValue();
-		Metric metric = NewMetrics.contains(type);
+		Metric metric = NewMetrics.contains(key);
 
 		if (metric != null){
 			NewMeasuresExtractor.genericSaveMeasure.get(metric.getType()).saveMeasure(sensorContext, resource, metric, value);
