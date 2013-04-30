@@ -39,11 +39,7 @@ import com.thalesgroup.tusar.lib.convertor.Convertor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.SensorContext;
-import org.sonar.api.measures.CoreMetrics;
-import org.sonar.api.measures.Measure;
 import org.sonar.api.resources.Project;
-import org.sonar.api.resources.Qualifiers;
-import org.sonar.api.resources.Resource;
 import org.xml.sax.SAXException;
 
 import com.thalesgroup.dtkit.util.converter.ConversionServiceFactory;
