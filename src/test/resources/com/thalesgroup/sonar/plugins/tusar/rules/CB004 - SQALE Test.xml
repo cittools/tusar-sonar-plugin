@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<rules>
+	<rule key="duplicated_S1231" priority="MINOR">
+		<name><![CDATA[The members of an interface declaration or class should appear in a pre-defined order]]></name>
+		<configKey><![CDATA[squid:S00112 duplication]]></configKey>
+		<category name="Redability" />
+		<description><![CDATA[ According to the Java Code Conventions as defined by Oracle, the parts of a class or interface declaration should appear in the following order in the source files: Class and instance variables,, Constructors, Methods.
+		Move this variable to comply with Java Code Conventions.]]></description>
+	</rule>
+	<rule key="duplicated_S00105" priority="MINOR">
+		<name><![CDATA[Tabulation characters should not be used]]></name>
+		<configKey><![CDATA[squid:S00112 duplication]]></configKey>
+		<category name="Redability" />
+		<description><![CDATA[Developers should not need to configure the tab width of their text editors in order to be able to read source code. So the use of tabulation character must be banned. 
+		Replace all tab characters in this file by sequences of white-spaces.]]></description>
+	</rule>
+	<rule key="duplicated_S00112" priority="MAJOR">
+		<name><![CDATA[Generic exceptions Error, RuntimeException, Throwable and Exception should never be thrown]]></name>
+		<configKey><![CDATA[squid:S00112 duplication]]></configKey>
+		<category name="Exception handling" />
+		<description><![CDATA[Using such generic exception prevents calling methods from handling differently each kind of error. 
+		Define and throw a dedicated exception instead of using a generic one.]]></description>
+	</rule>
+</rules>

@@ -1,0 +1,407 @@
+<?xml version="1.0"?>
+<rules>
+	<rule key="(Positional_Components)" priority="INFO">
+		<name><![CDATA[positional components associations in aggregates]]></name>
+		<configKey><![CDATA[positional components associations in aggregates]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[positional components associations in aggregates]]></description>
+	</rule>
+	<rule key="(USE_PACKAGE_Clauses)" priority="INFO">
+		<name><![CDATA[use clause for packages]]></name>
+		<configKey><![CDATA[use clause for packages]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[use clause for packages]]></description>
+	</rule>
+	<rule key="(Unnamed_Blocks_And_Loops)" priority="INFO">
+		<name><![CDATA[compound statements naming]]></name>
+		<configKey><![CDATA[compound statements naming]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[compound statements naming]]></description>
+	</rule>
+	<rule key="(Explicit_Full_Discrete_Ranges)" priority="INFO">
+		<name><![CDATA[explicit discrete ranges]]></name>
+		<configKey><![CDATA[explicit discrete ranges]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[explicit discrete ranges]]></description>
+	</rule>
+	<rule key="(Non_Short_Circuit_Operators)" priority="INFO">
+		<name><![CDATA[use of predefined AND and OR for boolean types]]></name>
+		<configKey><![CDATA[use of predefined AND and OR for boolean types]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[use of predefined AND and OR for boolean types]]></description>
+	</rule>
+	<rule key="(Metrics_Cyclomatic_Complexity)" priority="INFO">
+		<name><![CDATA[(metrics) high cyclomatic complexity]]></name>
+		<configKey><![CDATA[(metrics) high cyclomatic complexity]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[(metrics) high cyclomatic complexity]]></description>
+	</rule>
+	<rule key="(Overly_Nested_Control_Structures)" priority="INFO">
+		<name><![CDATA[deep nesting level of control structures]]></name>
+		<configKey><![CDATA[deep nesting level of control structures]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[deep nesting level of control structures]]></description>
+	</rule>
+	<rule key="(Predefined_Numeric_Types)" priority="INFO">
+		<name><![CDATA[explicit references to predefined numeric subtypes]]></name>
+		<configKey><![CDATA[explicit references to predefined numeric subtypes]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[explicit references to predefined numeric subtypes]]></description>
+	</rule>
+	<rule key="(Name_Clashes)" priority="INFO">
+		<name><![CDATA[restrictions on name space]]></name>
+		<configKey><![CDATA[restrictions on name space]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[restrictions on name space]]></description>
+	</rule>
+	<rule key="(Non_SPARK_Attributes)" priority="INFO">
+		<name><![CDATA[attributes that are not from the SPARK subset]]></name>
+		<configKey><![CDATA[attributes that are not from the SPARK subset]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[attributes that are not from the SPARK subset]]></description>
+	</rule>
+	<rule key="(OTHERS_In_Exception_Handlers)" priority="INFO">
+		<name><![CDATA[OTHERS choices in exception handlers]]></name>
+		<configKey><![CDATA[OTHERS choices in exception handlers]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[OTHERS choices in exception handlers]]></description>
+	</rule>
+	<rule key="(Volatile_Objects_Without_Address_Clauses)" priority="INFO">
+		<name><![CDATA[volatile objects with no address clause]]></name>
+		<configKey><![CDATA[volatile objects with no address clause]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[volatile objects with no address clause]]></description>
+	</rule>
+	<rule key="(Function_Style_Procedures)" priority="INFO">
+		<name><![CDATA[procedures looking like functions]]></name>
+		<configKey><![CDATA[procedures looking like functions]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[procedures looking like functions]]></description>
+	</rule>
+	<rule key="(Deeply_Nested_Generics)" priority="INFO">
+		<name><![CDATA[deeply nested generic declarations]]></name>
+		<configKey><![CDATA[deeply nested generic declarations]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[deeply nested generic declarations]]></description>
+	</rule>
+	<rule key="(Generics_In_Subprograms)" priority="INFO">
+		<name><![CDATA[definitions of generic units in  subprogram bodies]]></name>
+		<configKey><![CDATA[definitions of generic units in  subprogram bodies]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[definitions of generic units in  subprogram bodies]]></description>
+	</rule>
+	<rule key="(Declarations_In_Blocks)" priority="INFO">
+		<name><![CDATA[block statements with local declarations]]></name>
+		<configKey><![CDATA[block statements with local declarations]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[block statements with local declarations]]></description>
+	</rule>
+	<rule key="(Library_Level_Subprograms)" priority="INFO">
+		<name><![CDATA[library level subprograms]]></name>
+		<configKey><![CDATA[library level subprograms]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[library level subprograms]]></description>
+	</rule>
+	<rule key="(Controlled_Type_Declarations)" priority="INFO">
+		<name><![CDATA[controlled types]]></name>
+		<configKey><![CDATA[controlled types]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[controlled types]]></description>
+	</rule>
+	<rule key="(Raising_Predefined_Exceptions)" priority="INFO">
+		<name><![CDATA[explicit raise of predefined exceptions]]></name>
+		<configKey><![CDATA[explicit raise of predefined exceptions]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[explicit raise of predefined exceptions]]></description>
+	</rule>
+	<rule key="(Outer_Loop_Exits)" priority="INFO">
+		<name><![CDATA[exiting more than one loop at once]]></name>
+		<configKey><![CDATA[exiting more than one loop at once]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[exiting more than one loop at once]]></description>
+	</rule>
+	<rule key="(Discriminated_Records)" priority="INFO">
+		<name><![CDATA[discriminanted records]]></name>
+		<configKey><![CDATA[discriminanted records]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[discriminanted records]]></description>
+	</rule>
+	<rule key="(Too_Many_Parents)" priority="INFO">
+		<name><![CDATA[type/object has too many parents]]></name>
+		<configKey><![CDATA[type/object has too many parents]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[type/object has too many parents]]></description>
+	</rule>
+	<rule key="(Default_Parameters)" priority="INFO">
+		<name><![CDATA[declarations of default subprogram parameters]]></name>
+		<configKey><![CDATA[declarations of default subprogram parameters]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[declarations of default subprogram parameters]]></description>
+	</rule>
+	<rule key="(EXIT_Statements_With_No_Loop_Name)" priority="INFO">
+		<name><![CDATA[exit statements with no loop name]]></name>
+		<configKey><![CDATA[exit statements with no loop name]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[exit statements with no loop name]]></description>
+	</rule>
+	<rule key="(Non_Visible_Exceptions)" priority="INFO">
+		<name><![CDATA[potential propagations of non-visible exceptions]]></name>
+		<configKey><![CDATA[potential propagations of non-visible exceptions]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[potential propagations of non-visible exceptions]]></description>
+	</rule>
+	<rule key="(Improperly_Located_Instantiations)" priority="INFO">
+		<name><![CDATA[instantiations that can cause problems]]></name>
+		<configKey><![CDATA[instantiations that can cause problems]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[instantiations that can cause problems]]></description>
+	</rule>
+	<rule key="(Positional_Actuals_For_Defaulted_Parameters)"
+		priority="INFO">
+		<name><![CDATA[positional actuals for defaulted parameters]]></name>
+		<configKey><![CDATA[positional actuals for defaulted parameters]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[positional actuals for defaulted parameters]]></description>
+	</rule>
+	<rule key="(GOTO_Statements)" priority="INFO">
+		<name><![CDATA[goto statements]]></name>
+		<configKey><![CDATA[goto statements]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[goto statements]]></description>
+	</rule>
+	<rule key="(Non_Tagged_Derived_Types)" priority="INFO">
+		<name><![CDATA[derived types that are not type extensions]]></name>
+		<configKey><![CDATA[derived types that are not type extensions]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[derived types that are not type extensions]]></description>
+	</rule>
+	<rule key="(Deep_Inheritance_Hierarchies)" priority="INFO">
+		<name><![CDATA[derivation tree is too deep]]></name>
+		<configKey><![CDATA[derivation tree is too deep]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[derivation tree is too deep]]></description>
+	</rule>
+	<rule key="(Misnamed_Identifiers)" priority="INFO">
+		<name><![CDATA[suffixes in defining names]]></name>
+		<configKey><![CDATA[suffixes in defining names]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[suffixes in defining names]]></description>
+	</rule>
+	<rule key="(Metrics_Essential_Complexity)" priority="INFO">
+		<name><![CDATA[(metrics) high essential complexity]]></name>
+		<configKey><![CDATA[(metrics) high essential complexity]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[(metrics) high essential complexity]]></description>
+	</rule>
+	<rule key="(Anonymous_Subtypes)" priority="INFO">
+		<name><![CDATA[anonymous subtypes]]></name>
+		<configKey><![CDATA[anonymous subtypes]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[anonymous subtypes]]></description>
+	</rule>
+	<rule key="(Overloaded_Operators)" priority="INFO">
+		<name><![CDATA[operator overloading]]></name>
+		<configKey><![CDATA[operator overloading]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[operator overloading]]></description>
+	</rule>
+	<rule key="(Universal_Ranges)" priority="INFO">
+		<name><![CDATA[ranges with universal integer bounds]]></name>
+		<configKey><![CDATA[ranges with universal integer bounds]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[ranges with universal integer bounds]]></description>
+	</rule>
+	<rule key="(OTHERS_In_CASE_Statements)" priority="INFO">
+		<name><![CDATA[OTHERS choices in case statements]]></name>
+		<configKey><![CDATA[OTHERS choices in case statements]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[OTHERS choices in case statements]]></description>
+	</rule>
+	<rule key="(Blocks)" priority="INFO">
+		<name><![CDATA[block statements]]></name>
+		<configKey><![CDATA[block statements]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[block statements]]></description>
+	</rule>
+	<rule key="(Positional_Actuals_For_Defaulted_Generic_Parameters)"
+		priority="INFO">
+		<name><![CDATA[positional generic actuals for defaulted generic parameters]]></name>
+		<configKey><![CDATA[positional generic actuals for defaulted generic parameters]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[positional generic actuals for defaulted generic parameters]]></description>
+	</rule>
+	<rule key="(Implicit_SMALL_For_Fixed_Point_Types)" priority="INFO">
+		<name><![CDATA[fixed point type declarations with no 'Small clause]]></name>
+		<configKey><![CDATA[fixed point type declarations with no 'Small clause]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[fixed point type declarations with no 'Small clause]]></description>
+	</rule>
+	<rule key="(Metrics_LSLOC)" priority="INFO">
+		<name><![CDATA[(metrics) high LSLOC value]]></name>
+		<configKey><![CDATA[(metrics) high LSLOC value]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[(metrics) high LSLOC value]]></description>
+	</rule>
+	<rule key="(Slices)" priority="INFO">
+		<name><![CDATA[slices]]></name>
+		<configKey><![CDATA[slices]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[slices]]></description>
+	</rule>
+	<rule key="(Local_Packages)" priority="INFO">
+		<name><![CDATA[local packages]]></name>
+		<configKey><![CDATA[local packages]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[local packages]]></description>
+	</rule>
+	<rule key="(Unassigned_OUT_Parameters)" priority="INFO">
+		<name><![CDATA[OUT parameters do not get values in procedure bodies]]></name>
+		<configKey><![CDATA[OUT parameters do not get values in procedure bodies]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[OUT parameters do not get values in procedure bodies]]></description>
+	</rule>
+	<rule key="(Anonymous_Arrays)" priority="INFO">
+		<name><![CDATA[anonymous array types]]></name>
+		<configKey><![CDATA[anonymous array types]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[anonymous array types]]></description>
+	</rule>
+	<rule key="(Direct_Calls_To_Primitives)" priority="INFO">
+		<name><![CDATA[non-dispatching calls to primitives]]></name>
+		<configKey><![CDATA[non-dispatching calls to primitives]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[non-dispatching calls to primitives]]></description>
+	</rule>
+	<rule key="(Improper_Returns)" priority="INFO">
+		<name><![CDATA[improper use of return statements]]></name>
+		<configKey><![CDATA[improper use of return statements]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[improper use of return statements]]></description>
+	</rule>
+	<rule key="(Expanded_Loop_Exit_Names)" priority="INFO">
+		<name><![CDATA[expanded loop names in exit statements]]></name>
+		<configKey><![CDATA[expanded loop names in exit statements]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[expanded loop names in exit statements]]></description>
+	</rule>
+	<rule key="(Non_Qualified_Aggregates)" priority="INFO">
+		<name><![CDATA[non-qualified aggregates]]></name>
+		<configKey><![CDATA[non-qualified aggregates]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[non-qualified aggregates]]></description>
+	</rule>
+	<rule key="(Exceptions_As_Control_Flow)" priority="INFO">
+		<name><![CDATA[exceptions for control flow]]></name>
+		<configKey><![CDATA[exceptions for control flow]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[exceptions for control flow]]></description>
+	</rule>
+	<rule key="(Forbidden_Pragmas)" priority="INFO">
+		<name><![CDATA[usage of specified pragmas]]></name>
+		<configKey><![CDATA[usage of specified pragmas]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[usage of specified pragmas]]></description>
+	</rule>
+	<rule key="(Uncommented_BEGIN_In_Package_Bodies)" priority="INFO">
+		<name><![CDATA[BEGIN keywords in package bodies non-marked with comment with package name]]></name>
+		<configKey><![CDATA[BEGIN keywords in package bodies non-marked with comment with package name]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[BEGIN keywords in package bodies non-marked with comment with package name]]></description>
+	</rule>
+	<rule key="(OTHERS_In_Aggregates)" priority="INFO">
+		<name><![CDATA[OTHERS choices in aggregates]]></name>
+		<configKey><![CDATA[OTHERS choices in aggregates]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[OTHERS choices in aggregates]]></description>
+	</rule>
+	<rule key="(Parameters_Out_Of_Order)" priority="INFO">
+		<name><![CDATA[formal parameters ordering]]></name>
+		<configKey><![CDATA[formal parameters ordering]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[formal parameters ordering]]></description>
+	</rule>
+	<rule key="(Numeric_Literals)" priority="INFO">
+		<name><![CDATA[numeric literals]]></name>
+		<configKey><![CDATA[numeric literals]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[numeric literals]]></description>
+	</rule>
+	<rule key="(Boolean_Relational_Operators)" priority="INFO">
+		<name><![CDATA[comparisons of Boolean values]]></name>
+		<configKey><![CDATA[comparisons of Boolean values]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[comparisons of Boolean values]]></description>
+	</rule>
+	<rule key="(Raising_External_Exceptions)" priority="INFO">
+		<name><![CDATA[visibility of exceptions raised by routines declared in library package]]></name>
+		<configKey><![CDATA[visibility of exceptions raised by routines declared in library package]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[visibility of exceptions raised by routines declared in library package]]></description>
+	</rule>
+	<rule key="(Multiple_Entries_In_Protected_Definitions)" priority="INFO">
+		<name><![CDATA[protected definitions with more then one entry]]></name>
+		<configKey><![CDATA[protected definitions with more then one entry]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[protected definitions with more then one entry]]></description>
+	</rule>
+	<rule key="(Abstract_Type_Declarations)" priority="INFO">
+		<name><![CDATA[abstract types]]></name>
+		<configKey><![CDATA[abstract types]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[abstract types]]></description>
+	</rule>
+	<rule key="(Visible_Components)" priority="INFO">
+		<name><![CDATA[Types with publically accessable components]]></name>
+		<configKey><![CDATA[Types with publically accessable components]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[Types with publically accessable components]]></description>
+	</rule>
+	<rule key="(Implicit_IN_Mode_Parameters)" priority="INFO">
+		<name><![CDATA[implicit IN mode in parameter specifications]]></name>
+		<configKey><![CDATA[implicit IN mode in parameter specifications]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[implicit IN mode in parameter specifications]]></description>
+	</rule>
+	<rule key="(Separate_Numeric_Error_Handlers)" priority="INFO">
+		<name><![CDATA[Numeric_Error and Constraint error are not handled together]]></name>
+		<configKey><![CDATA[Numeric_Error and Constraint error are not handled together]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[Numeric_Error and Constraint error are not handled together]]></description>
+	</rule>
+	<rule key="(Float_Equality_Checks)" priority="INFO">
+		<name><![CDATA[equality for float values]]></name>
+		<configKey><![CDATA[equality for float values]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[equality for float values]]></description>
+	</rule>
+	<rule key="(Unconstrained_Array_Returns)" priority="INFO">
+		<name><![CDATA[functions returning unconstrained arrays]]></name>
+		<configKey><![CDATA[functions returning unconstrained arrays]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[functions returning unconstrained arrays]]></description>
+	</rule>
+	<rule key="(Positional_Parameters)" priority="INFO">
+		<name><![CDATA[positional associations in subprogram and entry calls]]></name>
+		<configKey><![CDATA[positional associations in subprogram and entry calls]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[positional associations in subprogram and entry calls]]></description>
+	</rule>
+	<rule key="(Positional_Generic_Parameters)" priority="INFO">
+		<name><![CDATA[positional generic associations]]></name>
+		<configKey><![CDATA[positional generic associations]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[positional generic associations]]></description>
+	</rule>
+	<rule key="(Complex_Inlined_Subprograms)" priority="INFO">
+		<name><![CDATA[complex inlined subprograms]]></name>
+		<configKey><![CDATA[complex inlined subprograms]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[complex inlined subprograms]]></description>
+	</rule>
+	<rule key="(Enumeration_Ranges_In_CASE_Statements)" priority="INFO">
+		<name><![CDATA[enumeration ranges as choices in case statements]]></name>
+		<configKey><![CDATA[enumeration ranges as choices in case statements]]></configKey>
+		<category name="Reliability" />
+		<description><![CDATA[enumeration ranges as choices in case statements]]></description>
+	</rule>
+</rules>

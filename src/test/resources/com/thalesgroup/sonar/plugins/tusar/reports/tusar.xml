@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tusar:tusar xmlns:xs="http://www.w3.org/2001/XMLSchema"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:tusar="http://www.thalesgroup.com/tusar/v3"
+             xmlns:measures="http://www.thalesgroup.com/tusar/measures/v3">
+   <tusar:measures>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\adi_command_types.h">
+         <measures:measure key="LOC" value="46"/>
+         <measures:measure key="NCLOC" value="20"/>
+         <measures:measure key="INSTRUCTIONS" value="2"/>
+         <measures:measure key="COMMENTS" value="18"/>
+         <measures:measure key="MIXED" value="1"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\adi_infra_command.h">
+         <measures:measure key="LOC" value="32"/>
+         <measures:measure key="NCLOC" value="22"/>
+         <measures:measure key="INSTRUCTIONS" value="8"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="1"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\adi_infra_database.h">
+         <measures:measure key="LOC" value="209"/>
+         <measures:measure key="NCLOC" value="49"/>
+         <measures:measure key="INSTRUCTIONS" value="33"/>
+         <measures:measure key="COMMENTS" value="137"/>
+         <measures:measure key="MIXED" value="9"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\adi_infra_io.h">
+         <measures:measure key="LOC" value="486"/>
+         <measures:measure key="NCLOC" value="359"/>
+         <measures:measure key="INSTRUCTIONS" value="140"/>
+         <measures:measure key="COMMENTS" value="14"/>
+         <measures:measure key="MIXED" value="1"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\adi_infra_pdbg.h">
+         <measures:measure key="LOC" value="22"/>
+         <measures:measure key="NCLOC" value="9"/>
+         <measures:measure key="INSTRUCTIONS" value="3"/>
+         <measures:measure key="COMMENTS" value="8"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\adi_infra_persistence.h">
+         <measures:measure key="LOC" value="194"/>
+         <measures:measure key="NCLOC" value="31"/>
+         <measures:measure key="INSTRUCTIONS" value="20"/>
+         <measures:measure key="COMMENTS" value="135"/>
+         <measures:measure key="MIXED" value="1"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\adi_infra_util.h">
+         <measures:measure key="LOC" value="192"/>
+         <measures:measure key="NCLOC" value="49"/>
+         <measures:measure key="INSTRUCTIONS" value="25"/>
+         <measures:measure key="COMMENTS" value="112"/>
+         <measures:measure key="MIXED" value="10"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\adi_iom_common_types.h">
+         <measures:measure key="LOC" value="9"/>
+         <measures:measure key="NCLOC" value="5"/>
+         <measures:measure key="INSTRUCTIONS" value="0"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\adi_iom_context.h">
+         <measures:measure key="LOC" value="74"/>
+         <measures:measure key="NCLOC" value="37"/>
+         <measures:measure key="INSTRUCTIONS" value="12"/>
+         <measures:measure key="COMMENTS" value="20"/>
+         <measures:measure key="MIXED" value="1"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\adi_iom_interface.h">
+         <measures:measure key="LOC" value="37"/>
+         <measures:measure key="NCLOC" value="29"/>
+         <measures:measure key="INSTRUCTIONS" value="3"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\adi_iom_published_data.h">
+         <measures:measure key="LOC" value="35"/>
+         <measures:measure key="NCLOC" value="21"/>
+         <measures:measure key="INSTRUCTIONS" value="6"/>
+         <measures:measure key="COMMENTS" value="5"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\adi_io_common_types.h">
+         <measures:measure key="LOC" value="20"/>
+         <measures:measure key="NCLOC" value="7"/>
+         <measures:measure key="INSTRUCTIONS" value="2"/>
+         <measures:measure key="COMMENTS" value="5"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\adi_main.h">
+         <measures:measure key="LOC" value="61"/>
+         <measures:measure key="NCLOC" value="17"/>
+         <measures:measure key="INSTRUCTIONS" value="9"/>
+         <measures:measure key="COMMENTS" value="33"/>
+         <measures:measure key="MIXED" value="5"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\adi_performance.h">
+         <measures:measure key="LOC" value="49"/>
+         <measures:measure key="NCLOC" value="9"/>
+         <measures:measure key="INSTRUCTIONS" value="2"/>
+         <measures:measure key="COMMENTS" value="33"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\adi_types.h">
+         <measures:measure key="LOC" value="92"/>
+         <measures:measure key="NCLOC" value="44"/>
+         <measures:measure key="INSTRUCTIONS" value="20"/>
+         <measures:measure key="COMMENTS" value="28"/>
+         <measures:measure key="MIXED" value="5"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\adi_util.h">
+         <measures:measure key="LOC" value="789"/>
+         <measures:measure key="NCLOC" value="141"/>
+         <measures:measure key="INSTRUCTIONS" value="66"/>
+         <measures:measure key="COMMENTS" value="557"/>
+         <measures:measure key="MIXED" value="10"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\seid_basic_types.h">
+         <measures:measure key="LOC" value="42"/>
+         <measures:measure key="NCLOC" value="23"/>
+         <measures:measure key="INSTRUCTIONS" value="15"/>
+         <measures:measure key="COMMENTS" value="15"/>
+         <measures:measure key="MIXED" value="1"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\seid_common_types.h">
+         <measures:measure key="LOC" value="167"/>
+         <measures:measure key="NCLOC" value="107"/>
+         <measures:measure key="INSTRUCTIONS" value="33"/>
+         <measures:measure key="COMMENTS" value="36"/>
+         <measures:measure key="MIXED" value="1"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\sima_external.h">
+         <measures:measure key="LOC" value="21"/>
+         <measures:measure key="NCLOC" value="14"/>
+         <measures:measure key="INSTRUCTIONS" value="0"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\sima_internal.h">
+         <measures:measure key="LOC" value="48"/>
+         <measures:measure key="NCLOC" value="38"/>
+         <measures:measure key="INSTRUCTIONS" value="0"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\sima_middleware.h">
+         <measures:measure key="LOC" value="157"/>
+         <measures:measure key="NCLOC" value="156"/>
+         <measures:measure key="INSTRUCTIONS" value="0"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\sima_process_config.h">
+         <measures:measure key="LOC" value="14"/>
+         <measures:measure key="NCLOC" value="10"/>
+         <measures:measure key="INSTRUCTIONS" value="5"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\genapi\sima_generated_api.h">
+         <measures:measure key="LOC" value="166"/>
+         <measures:measure key="NCLOC" value="130"/>
+         <measures:measure key="INSTRUCTIONS" value="66"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\mw\sima_alarm.h">
+         <measures:measure key="LOC" value="64"/>
+         <measures:measure key="NCLOC" value="41"/>
+         <measures:measure key="INSTRUCTIONS" value="5"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\mw\sima_config.h">
+         <measures:measure key="LOC" value="79"/>
+         <measures:measure key="NCLOC" value="61"/>
+         <measures:measure key="INSTRUCTIONS" value="6"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\mw\sima_counter.h">
+         <measures:measure key="LOC" value="40"/>
+         <measures:measure key="NCLOC" value="27"/>
+         <measures:measure key="INSTRUCTIONS" value="2"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\mw\sima_datavr.h">
+         <measures:measure key="LOC" value="111"/>
+         <measures:measure key="NCLOC" value="77"/>
+         <measures:measure key="INSTRUCTIONS" value="9"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\mw\sima_gosi.h">
+         <measures:measure key="LOC" value="61"/>
+         <measures:measure key="NCLOC" value="31"/>
+         <measures:measure key="INSTRUCTIONS" value="13"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\mw\sima_gosi_clock.h">
+         <measures:measure key="LOC" value="80"/>
+         <measures:measure key="NCLOC" value="57"/>
+         <measures:measure key="INSTRUCTIONS" value="6"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\mw\sima_init.h">
+         <measures:measure key="LOC" value="41"/>
+         <measures:measure key="NCLOC" value="24"/>
+         <measures:measure key="INSTRUCTIONS" value="13"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\mw\sima_life_cycle.h">
+         <measures:measure key="LOC" value="88"/>
+         <measures:measure key="NCLOC" value="65"/>
+         <measures:measure key="INSTRUCTIONS" value="5"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\mw\sima_map.h">
+         <measures:measure key="LOC" value="88"/>
+         <measures:measure key="NCLOC" value="81"/>
+         <measures:measure key="INSTRUCTIONS" value="1"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\mw\sima_monitor.h">
+         <measures:measure key="LOC" value="47"/>
+         <measures:measure key="NCLOC" value="28"/>
+         <measures:measure key="INSTRUCTIONS" value="5"/>
+         <measures:measure key="COMMENTS" value="7"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\mw\sima_network.h">
+         <measures:measure key="LOC" value="67"/>
+         <measures:measure key="NCLOC" value="51"/>
+         <measures:measure key="INSTRUCTIONS" value="4"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\mw\sima_observe.h">
+         <measures:measure key="LOC" value="31"/>
+         <measures:measure key="NCLOC" value="25"/>
+         <measures:measure key="INSTRUCTIONS" value="2"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\mw\sima_pool.h">
+         <measures:measure key="LOC" value="57"/>
+         <measures:measure key="NCLOC" value="40"/>
+         <measures:measure key="INSTRUCTIONS" value="4"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\mw\sima_rate_checker.h">
+         <measures:measure key="LOC" value="60"/>
+         <measures:measure key="NCLOC" value="37"/>
+         <measures:measure key="INSTRUCTIONS" value="15"/>
+         <measures:measure key="COMMENTS" value="5"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\mw\sima_registry.h">
+         <measures:measure key="LOC" value="57"/>
+         <measures:measure key="NCLOC" value="37"/>
+         <measures:measure key="INSTRUCTIONS" value="5"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\mw\sima_request.h">
+         <measures:measure key="LOC" value="147"/>
+         <measures:measure key="NCLOC" value="142"/>
+         <measures:measure key="INSTRUCTIONS" value="2"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\mw\sima_route.h">
+         <measures:measure key="LOC" value="187"/>
+         <measures:measure key="NCLOC" value="143"/>
+         <measures:measure key="INSTRUCTIONS" value="30"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\mw\sima_serial.h">
+         <measures:measure key="LOC" value="208"/>
+         <measures:measure key="NCLOC" value="118"/>
+         <measures:measure key="INSTRUCTIONS" value="46"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\mw\sima_start.h">
+         <measures:measure key="LOC" value="17"/>
+         <measures:measure key="NCLOC" value="12"/>
+         <measures:measure key="INSTRUCTIONS" value="1"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\mw\sima_supervision.h">
+         <measures:measure key="LOC" value="29"/>
+         <measures:measure key="NCLOC" value="20"/>
+         <measures:measure key="INSTRUCTIONS" value="1"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\mw\sima_timer.h">
+         <measures:measure key="LOC" value="72"/>
+         <measures:measure key="NCLOC" value="70"/>
+         <measures:measure key="INSTRUCTIONS" value="0"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\mw\sima_trace.h">
+         <measures:measure key="LOC" value="32"/>
+         <measures:measure key="NCLOC" value="26"/>
+         <measures:measure key="INSTRUCTIONS" value="6"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\types\sima_common_types.h">
+         <measures:measure key="LOC" value="513"/>
+         <measures:measure key="NCLOC" value="445"/>
+         <measures:measure key="INSTRUCTIONS" value="144"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\types\MACS\sima_gosi_types_MACS.h">
+         <measures:measure key="LOC" value="57"/>
+         <measures:measure key="NCLOC" value="38"/>
+         <measures:measure key="INSTRUCTIONS" value="15"/>
+         <measures:measure key="COMMENTS" value="4"/>
+         <measures:measure key="MIXED" value="2"/>
+      </measures:resource>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\SW_ADI\SOURCE_CODE\PUBLIC\INC\types\WINDOWS\sima_gosi_types_WINDOWS.h">
+         <measures:measure key="LOC" value="61"/>
+         <measures:measure key="NCLOC" value="45"/>
+         <measures:measure key="INSTRUCTIONS" value="18"/>
+         <measures:measure key="COMMENTS" value="0"/>
+         <measures:measure key="MIXED" value="2"/>
+      </measures:resource>
+   </tusar:measures>
+</tusar:tusar>

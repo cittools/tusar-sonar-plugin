@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tusar:tusar xmlns:xs="http://www.w3.org/2001/XMLSchema"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:tusar="http://www.thalesgroup.com/tusar/v3"
+             xmlns:measures="http://www.thalesgroup.com/tusar/measures/v3">
+   <tusar:measures>
+      <measures:resource type="FILE"
+                         value="C:\Documents and Settings\S0045545\My Documents\Works\SonarSandbox\prod00115729\ADI_MAIN\SOURCE_CODE\MANUAL\SRC\adi_main.c">
+         <measures:measure key="LOC" value="340"/>
+         <measures:measure key="NCLOC" value="262"/>
+         <measures:measure key="INSTRUCTIONS" value="153"/>
+         <measures:measure key="COMMENTS" value="5"/>
+         <measures:measure key="MIXED" value="0"/>
+      </measures:resource>
+   </tusar:measures>
+</tusar:tusar>

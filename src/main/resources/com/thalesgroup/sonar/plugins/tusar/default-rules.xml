@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<rules>
-	<rule key="BD-MISC-TRANS" priority="BLOCKER">
-		<name><![CDATA[Always close transactions]]></name>
-		<configKey><![CDATA[Always close transactions]]></configKey>
-		<category name="Reliability"/>
-		<description><![CDATA[Always close transactions]]></description>
-	</rule>
-</rules>
