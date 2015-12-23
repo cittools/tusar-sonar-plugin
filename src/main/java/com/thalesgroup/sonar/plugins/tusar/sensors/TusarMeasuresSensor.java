@@ -226,7 +226,8 @@ public class TusarMeasuresSensor extends AbstractSensor {
 			}
 			return metric.getKey();
 		} else {
-			return measure.getKey();
+			//prod00141550: measure key insensitive
+			return measure.getKey().toLowerCase();
 		}
 	}
 

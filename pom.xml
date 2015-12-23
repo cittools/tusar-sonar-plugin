@@ -6,7 +6,7 @@
 	<groupId>com.thalesgroup.sonar.plugins</groupId>
 	<artifactId>tusarplugin</artifactId>
 	<packaging>sonar-plugin</packaging>
-	<version>1.2.21</version>
+	<version>1.2.22</version>
 	<name>SonarQube TUSAR Plugin</name>
 	<organization>
 		<url>https://www.thalesgroup.com</url>
