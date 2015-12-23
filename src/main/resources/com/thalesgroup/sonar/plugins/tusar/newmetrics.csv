@@ -1,6 +1,0 @@
-#Columns : Name;Type;Domain
-#Allowed Type : int, float, string, percent (not case sensitive)
-#TEST;FLOAT;Domain1
-#TEST2;INT;Domain2
-#TEST3;STRING;Domain2
-#AnotherTest;Percent;Percent

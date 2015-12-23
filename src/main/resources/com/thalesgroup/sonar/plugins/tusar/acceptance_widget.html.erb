@@ -1,0 +1,59 @@
+<div>
+<table width="100%">
+<tbody>
+<tr>
+<td width="48%" valign="top" nowrap="">
+<div class="dashbox">
+	<h3>Acceptance Tests</h3>
+	<p>
+		<span class="big">
+			 <% if measure('acceptance_tests') %>
+  				<%= format_measure('acceptance_tests', :suffix => ' ', :url => url_for_drilldown('acceptance_tests')) -%> <%= tendency_icon(measure('acceptance_tests')) -%>
+  			<% end %>
+		</span>
+	</p>
+</div>
+</td>
+<td width="10">
+	
+</td>
+<td valign="top">
+<div class="dashbox">
+	<h3>Test Success</h3>
+	<p>
+		<span class="big">
+			 <% if measure('acceptance_tests') %>
+  				<%= format_measure('acceptance_success_ratio', :suffix => ' ', :url => url_for_drilldown('acceptance_success_ratio')) -%> <%= tendency_icon(measure('acceptance_success_ratio')) -%>
+  			<% end %>
+		</span>
+	</p>
+		<p>&nbsp;</p>
+	<% if measure('acceptance_passed') %>
+	<p>
+  		<%= format_measure('acceptance_passed', :suffix => ' Passed', :url => url_for_drilldown('acceptance_passed')) -%> <%= tendency_icon(measure('acceptance_passed')) -%>
+  	</p>
+  	<% end %>
+  
+  	<% if measure('acceptance_ko') %>
+	<p>
+  		<%= format_measure('acceptance_ko', :suffix => '  Failed', :url => url_for_drilldown('acceptance_ko')) -%> <%= tendency_icon(measure('acceptance_ko')) -%>
+  	</p>
+  	<% end %>
+  	<% if measure('acceptance_ignores') %>
+	<p>
+  		<%= format_measure('acceptance_ignores', :suffix => '  Skipped', :url => url_for_drilldown('acceptance_ignores')) -%> <%= tendency_icon(measure('acceptance_ignores')) -%>
+  	</p>
+  	<% end %>
+  	<% if measure('acceptance_exceptions') %>
+	<p>
+  		<%= format_measure('acceptance_exceptions', :suffix => '  Exception(s)', :url => url_for_drilldown('acceptance_exceptions')) -%> <%= tendency_icon(measure('acceptance_exceptions')) -%>
+  	</p>
+  	<% end %>
+</div>	
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+

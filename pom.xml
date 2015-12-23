@@ -1,216 +1,286 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.thalesgroup.sonar.plugins</groupId>
-    <artifactId>tusarplugin</artifactId>
-    <packaging>sonar-plugin</packaging>
-    <description>tusar plugin</description>
-    <version>1.0.0</version>
-    <name>Sonar TUSAR Format Plugin</name>
+	<groupId>com.thalesgroup.sonar.plugins</groupId>
+	<artifactId>tusarplugin</artifactId>
+	<packaging>sonar-plugin</packaging>
+	<version>1.2.21</version>
+	<name>SonarQube TUSAR Plugin</name>
+	<organization>
+		<url>https://www.thalesgroup.com</url>
+		<name>Thales</name>
+	</organization>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.6</maven.compiler.source>
-        <maven.compiler.target>1.6</maven.compiler.target>
-        <maven.plugin.version>2.3.1</maven.plugin.version>
-        <sonar.version>3.5</sonar.version>
-		<sonar.degrade.version>3.3.1</sonar.degrade.version>
-        <lib.dtkit.util>0.15</lib.dtkit.util>
-        <sonar.language>tusar</sonar.language>
-        <!-- sonar.pluginClass>com.thalesgroup.sonar.plugins.tusar.TUSARPlugin</sonar.pluginClass>
-        <sonar.pluginKey>tusarplugin</sonar.pluginKey>
-        <sonar.pluginName>Sonar TUSAR Format Plugin</sonar.pluginName-->
-    </properties>
+	<licenses>
+		<license>
+			<name>MIT license</name>
+			<comments>All source code is under the MIT license.</comments>
+		</license>
+	</licenses>
 
-    <dependencies>
+	<developers>
+		<developer>
+			<id>gbois</id>
+			<name>Gregory Boissinot</name>
+			<email></email>
+			<timezone>+1</timezone>
+			<roles>
+				<role>Project maintainer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>aravindan</id>
+			<name>Aravindan Mahendran</name>
+			<timezone>+1</timezone>
+			<roles>
+				<role>Project maintainer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>koundoussi</id>
+			<name>Mohamed koundoussi</name>
+			<timezone>+1</timezone>
+			<roles>
+				<role>Project maintainer</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Florent Lioult</name>
+			<timezone>+1</timezone>
+			<roles>
+				<role>Project maintainer</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Mohamad AKAR</name>
+			<timezone>+1</timezone>
+			<roles>
+				<role>Project maintainer</role>
+			</roles>
+		</developer>
+	</developers>
 
-        <dependency>
-            <groupId>org.codehaus.sonar</groupId>
-            <artifactId>sonar-plugin-api</artifactId>
-            <version>${sonar.version}</version>
-            <scope>provided</scope>
-        </dependency>
+	<contributors>
+		<contributor>
+			<name>Gregory Boissinot</name>
+			<timezone>+1</timezone>
+			<roles>
+				<role>Project architect</role>
+			</roles>
+		</contributor>
+		<contributor>
+			<name>Guillaume Tanier</name>
+			<timezone>+1</timezone>
+			<roles>
+				<role>Project main developer</role>
+				<role>Project tester</role>
+			</roles>
+		</contributor>
+		<contributor>
+			<name>Aravindan Mahendran</name>
+			<timezone>+1</timezone>
+			<roles>
+				<role>Project tester</role>
+			</roles>
+		</contributor>
+		<contributor>
+			<name>Mohamed Koundoussi</name>
+			<timezone>+1</timezone>
+			<roles>
+				<role>development contributor</role>
+			</roles>
+		</contributor>
+		<contributor>
+			<name>Florent Lioult</name>
+			<timezone>+1</timezone>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</contributor>
+		<contributor>
+			<name>Mohamad AKAR</name>
+			<timezone>+1</timezone>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</contributor>
+	</contributors>
 
-        <dependency>
-            <groupId>org.jenkins-ci.lib.dtkit</groupId>
-            <artifactId>dtkit-metrics-util</artifactId>
-            <version>${lib.dtkit.util}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.sonar</groupId>
-            <artifactId>sonar-deprecated</artifactId>
-            <version>${sonar.version}</version>
-        </dependency>
+	<properties>
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.plugin.version>2.3.1</maven.plugin.version>
+		<saxon.version>9.1.0.8</saxon.version>
+	</properties>
 
-        <dependency>
-            <groupId>org.codehaus.sonar</groupId>
-            <artifactId>sonar-gwt-api</artifactId>
-            <version>${sonar.degrade.version}</version>
-             <scope>provided</scope>
-        </dependency>
-		<!-- dependency>
+	<dependencies>
+
+		<!-- SonarQube plugins. Required to compile but won't be included in the 
+			produced plugin. -->
+		<dependency>
 			<groupId>org.codehaus.sonar</groupId>
-			<artifactId>sonar-ws-client</artifactId>
-			<version>${sonar.degrade.version}</version>
-		</dependency-->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.7</version>
-            <scope>test</scope>
-        </dependency>
+			<artifactId>sonar-plugin-api</artifactId>
+			<version>4.3</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.sonar</groupId>
+			<artifactId>sonar-gwt-api</artifactId>
+			<version>3.3.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>1.7.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-incubator</artifactId>
+			<version>2.0.1</version>
+			<scope>provided</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-user</artifactId>
-            <version>1.7.0</version>
-             <scope>provided</scope>
-        </dependency>
+		<!-- Embedded dependencies (note that 'common-rules' is not a plugin). -->
+		<dependency>
+			<groupId>org.codehaus.sonar.common-rules</groupId>
+			<artifactId>sonar-common-rules</artifactId>
+			<version>1.2</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.thalesgroup.tusar.lib</groupId>
+			<artifactId>tusar2SonarConverter</artifactId>
+			<version>0.11</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.2</version>
+		</dependency>
 
-        <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-incubator</artifactId>
-            <version>2.0.1</version>
-        </dependency>
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-jsr223</artifactId>
+			<version>2.3.7</version>
+		</dependency>
+		<!--
+		<dependency>
+			<groupId>org.jruby</groupId>
+			<artifactId>jruby</artifactId>
+			<version>1.4.0RC1</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.python</groupId>
+			<artifactId>jython</artifactId>
+			<version>2.5.3</version>
+			<scope>runtime</scope>
+		</dependency>
+		-->
+		
+		<!-- Test dependencies. -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.0.3</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.7</version>
+			<scope>test</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-            <version>2.2.1.1</version>
-        </dependency>
+	</dependencies>
 
-        <dependency>
-            <groupId>activesoap</groupId>
-            <artifactId>jaxp-api</artifactId>
-            <version>1.3</version>
-        </dependency>
+	<build>
+		<plugins>
 
-        <dependency>
-            <groupId>com.thalesgroup.sonar.lib</groupId>
-            <artifactId>sonar-model</artifactId>
-            <version>0.5</version>
-        </dependency>
+			<!-- The 'sonar-packaging-maven-plugin' is expected to embed inside the 
+				plugin any dependencies with 'compile' scope, but fail to properly handle 
+				Maven classifiers. In case of the Saxon library (a XSLT 2.0 implementation), 
+				only the dependency with the 's9api' classifier is embedded (and not the 
+				default one strangely). The former solution was to use the 'shade' plugin, 
+				leading to a lot of duplicated and unecessary imported JAR amounting to a 
+				18 Mo plugin. This new solution only packs the required JAR and produces 
+				a smaller 4 Mo plugin. The downside is that we need to explicitely define 
+				this indirect dependency. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>net.sourceforge.saxon</groupId>
+									<artifactId>saxon</artifactId>
+									<version>${saxon.version}</version>
+									<type>jar</type>
+									<outputDirectory>${project.build.directory}\classes</outputDirectory>
+								</artifactItem>
+								<!-- This one is properly seen by the 'sonar-packaging-maven-plugin' 
+									plugin. <artifactItem> <groupId>net.sourceforge.saxon</groupId> <artifactId>saxon</artifactId> 
+									<version>${saxon.version}</version> <classifier>s9api</classifier> <type>jar</type> 
+									<outputDirectory>${project.build.directory}\classes</outputDirectory> </artifactItem> -->
+								<artifactItem>
+									<groupId>net.sourceforge.saxon</groupId>
+									<artifactId>saxon</artifactId>
+									<version>${saxon.version}</version>
+									<classifier>dom</classifier>
+									<type>jar</type>
+									<outputDirectory>${project.build.directory}\classes</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
-        <dependency>
-            <groupId>com.thalesgroup.tusar.lib</groupId>
-            <artifactId>tusar2SonarConverter</artifactId>
-            <version>0.5</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>com.thalesgroup.dtkit</groupId>
-            <artifactId>dtkit-tusar-model</artifactId>
-            <version>0.21</version>
-        </dependency>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>${maven.plugin.version}</version>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Plugin-Class>com.thalesgroup.sonar.plugins.tusar.TusarPlugin</Plugin-Class>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
 
-    </dependencies>
+			<plugin>
+				<groupId>org.codehaus.sonar</groupId>
+				<artifactId>sonar-packaging-maven-plugin</artifactId>
+				<version>1.7</version>
+				<extensions>true</extensions>
+				<!-- cf. http://docs.codehaus.org/display/SONAR/sonar-packaging-maven-plugin -->
+				<configuration>
+					<pluginKey>tusar</pluginKey>
+					<pluginName>TUSAR</pluginName>
+					<pluginClass>com.thalesgroup.sonar.plugins.tusar.TusarPlugin</pluginClass>
+					<pluginDescription>A SonarQube plugin to inject TUSAR report data into SonarQube during an analysis.</pluginDescription>
+				</configuration>
+			</plugin>
 
-    <developers>
-        <developer>
-            <id>gbois</id>
-            <name>Gregory Boissinot</name>
-            <email></email>
-            <timezone>+1</timezone>
-            <roles>
-                <role>Project maintainer</role>
-            </roles>
-        </developer>
-        <developer>
-            <id>aravindan</id>
-            <name>Aravindan Mahendran</name>
-            <timezone>+1</timezone>
-            <roles>
-                <role>Project maintainer</role>
-            </roles>
-        </developer>
-         <developer>
-            <id>koundoussi</id>
-            <name>Mohamed koundoussi</name>
-            <timezone>+1</timezone>
-            <roles>
-                <role>Project maintainer</role>
-            </roles>
-        </developer>
-    </developers>
+		</plugins>
+	</build>
 
-    <contributors>
-        <contributor>
-            <name>Gregory Boissinot</name>
-            <timezone>+1</timezone>
-            <roles>
-                <role>Project architect</role>
-            </roles>
-        </contributor>
-        <contributor>
-            <name>Guillaume Tanier</name>
-            <timezone>+1</timezone>
-            <roles>
-                <role>Project main developer</role>
-                <role>Project tester</role>
-            </roles>
-        </contributor>
-        <contributor>
-            <name>Aravindan Mahendran</name>
-            <timezone>+1</timezone>
-            <roles>
-                <role>Project tester</role>
-            </roles>
-        </contributor>
-         <contributor>
-            <name>Mohamed Koundoussi</name>
-            <timezone>+1</timezone>
-            <roles>
-                <role>development contributor</role>
-            </roles>
-        </contributor>
-    </contributors>
+	<scm>
+		<connection>scm:git:git://github.com/cittools/tusar-sonar-plugin.git</connection>
+		<developerConnection>scm:git:git://github.com/cittools/tusar-sonar-plugin.git</developerConnection>
+	</scm>
 
-    <build>
-    	
-        <plugins>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>${maven.plugin.version}</version>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <Plugin-Class>com.thalesgroup.sonar.plugins.tusar.TUSARPlugin</Plugin-Class>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>1.4</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.sonar</groupId>
-                <artifactId>sonar-packaging-maven-plugin</artifactId>
-                <version>1.4</version>
-                <extensions>true</extensions>
-                <configuration>
-					<pluginClass>com.thalesgroup.sonar.plugins.tusar.TUSARPlugin</pluginClass>
-					<pluginKey>tusarplugin</pluginKey>
-					<pluginName>TUSAR Format Plugin</pluginName>
-                    <!-- useChildFirstClassLoader>true</useChildFirstClassLoader-->
-                </configuration>
-            </plugin>
-  
-        </plugins>
-    </build>
 </project>
